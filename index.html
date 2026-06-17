@@ -862,6 +862,7 @@
     }
 
     .map-wrap {
+      position: relative;
       min-height: 530px;
       overflow: hidden;
       border: 1px solid var(--line);
@@ -876,8 +877,38 @@
       height: 100%;
       min-height: 530px;
       border: 0;
-      filter: grayscale(1) invert(.9) contrast(.88) brightness(.62);
-      opacity: .78;
+      filter: grayscale(.8) contrast(.96) brightness(.82);
+      opacity: .88;
+    }
+
+    .map-card {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      max-width: 360px;
+      padding: 18px;
+      border: 1px solid rgba(245, 239, 228, 0.16);
+      border-radius: var(--radius);
+      background: rgba(16, 16, 15, 0.84);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .28);
+      backdrop-filter: blur(14px);
+      pointer-events: none;
+    }
+
+    .map-card strong {
+      display: block;
+      color: var(--milk);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.32rem;
+      font-weight: 500;
+    }
+
+    .map-card span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: .94rem;
     }
 
     .site-footer {
@@ -1568,11 +1599,18 @@
             <a class="btn btn-outline contact-action" href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">
               Открыть Instagram
             </a>
+            <a class="btn btn-outline contact-action" href="https://www.openstreetmap.org/?mlat=53.916546&mlon=27.589339#map=17/53.916546/27.589339" target="_blank" rel="noopener">
+              Открыть карту
+            </a>
           </div>
         </div>
 
         <div class="map-wrap reveal" aria-label="Карта: RICH HALL, Минск, проспект Независимости, 56А">
-          <iframe title="RICH HALL на карте" src="https://yandex.com/map-widget/v1/?ll=27.589339%2C53.916546&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzExNzI0NRJS0JHQtdC70LDRgNGD0YHRjCwg0JzRltC90YHQuiwg0L_RgNCw0YHQv9C10LrRgiDQndC10LfQsNC70LXQttC90LDRgdGG0ZYsIDU20JAiCg0N9txCFbGpV0I%2C&z=16"></iframe>
+          <iframe title="RICH HALL на карте" src="https://www.openstreetmap.org/export/embed.html?bbox=27.581739%2C53.912946%2C27.596939%2C53.920146&layer=mapnik&marker=53.916546%2C27.589339"></iframe>
+          <div class="map-card" aria-hidden="true">
+            <strong>RICH HALL</strong>
+            <span>Минск, проспект Независимости, 56А. Рядом метро Площадь Якуба Коласа.</span>
+          </div>
         </div>
       </div>
     </section>
