@@ -1,0 +1,1721 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RICH HALL — банкетный зал в Минске</title>
+  <meta name="description" content="Банкетное пространство RICH HALL в центре Минска для свадеб, корпоративов, конференций, дней рождения и private dining.">
+  <meta name="theme-color" content="#10100f">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://api-maps.yandex.ru">
+  <style>
+    :root {
+      --bg: #10100f;
+      --bg-soft: #171716;
+      --graphite: #22211f;
+      --graphite-2: #2b2926;
+      --milk: #f5efe4;
+      --muted: #c8bca9;
+      --muted-2: #948875;
+      --gold: #c69a55;
+      --bronze: #8f693d;
+      --line: rgba(245, 239, 228, 0.12);
+      --glass: rgba(25, 24, 22, 0.74);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius: 8px;
+      --container: min(1180px, calc(100vw - 40px));
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--milk);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 72% 8%, rgba(198, 154, 85, 0.14), transparent 27rem),
+        linear-gradient(180deg, #10100f 0%, #131210 45%, #0e0e0d 100%);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body.menu-open,
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    ::selection {
+      color: #15120e;
+      background: var(--gold);
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid rgba(245, 239, 228, 0.08);
+      background: rgba(16, 16, 15, 0.72);
+      backdrop-filter: blur(18px);
+      transition: background .25s var(--ease), box-shadow .25s var(--ease);
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(16, 16, 15, 0.92);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+    }
+
+    .header-inner {
+      width: var(--container);
+      min-height: 82px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: max-content;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .brand span {
+      color: var(--gold);
+      font-size: .62rem;
+      letter-spacing: .32em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 1.55vw, 24px);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 30px 0;
+      transition: color .25s var(--ease);
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 23px;
+      width: 100%;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .25s var(--ease);
+    }
+
+    .nav a:hover {
+      color: var(--milk);
+    }
+
+    .nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: var(--milk);
+      background: transparent;
+      font-weight: 600;
+      letter-spacing: .01em;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #19130a;
+      background: linear-gradient(135deg, #e4bd78, #b9823f);
+      box-shadow: 0 18px 42px rgba(198, 154, 85, 0.2);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 20px 58px rgba(198, 154, 85, 0.28);
+    }
+
+    .btn-outline {
+      border-color: rgba(245, 239, 228, 0.22);
+      color: var(--milk);
+      background: rgba(245, 239, 228, 0.03);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(198, 154, 85, 0.72);
+      color: #f8e7c5;
+      background: rgba(198, 154, 85, 0.08);
+    }
+
+    .icon-btn {
+      display: none;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 239, 228, 0.18);
+      border-radius: var(--radius);
+      color: var(--milk);
+      background: rgba(245, 239, 228, 0.04);
+    }
+
+    .icon-btn svg,
+    .btn svg,
+    .event-card svg,
+    .contact-action svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(72px, 9vw, 132px) 0;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(3.1rem, 7.6vw, 7rem);
+    }
+
+    h2 {
+      font-size: clamp(2.3rem, 4.4vw, 4.7rem);
+    }
+
+    h3 {
+      font-size: clamp(1.45rem, 2vw, 2rem);
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 670px;
+      font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+    }
+
+    .hero {
+      min-height: 100svh;
+      padding: 138px 0 56px;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 160px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100svh - 194px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(340px, .78fr);
+      gap: clamp(32px, 5vw, 76px);
+      align-items: center;
+    }
+
+    .hero-copy {
+      align-self: center;
+    }
+
+    .hero-copy .lead {
+      margin-top: 26px;
+      color: #ded3c2;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      max-width: 720px;
+      margin-top: 54px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .hero-fact {
+      min-height: 104px;
+      padding: 22px;
+      background: rgba(20, 19, 17, 0.7);
+    }
+
+    .hero-fact strong {
+      display: block;
+      color: var(--milk);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.6rem, 2vw, 2.15rem);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .hero-fact span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-2);
+      font-size: .9rem;
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: 640px;
+      align-self: stretch;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: var(--graphite);
+    }
+
+    .hero-photo img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.82) contrast(1.08) brightness(.78);
+      transform: scale(1.02);
+    }
+
+    .hero-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(16, 16, 15, 0.04), rgba(16, 16, 15, 0.44));
+    }
+
+    .hero-note {
+      position: absolute;
+      right: -18px;
+      bottom: 38px;
+      width: min(300px, 78%);
+      padding: 22px;
+      border: 1px solid rgba(245, 239, 228, 0.14);
+      border-radius: var(--radius);
+      background: rgba(16, 16, 15, 0.78);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-note span {
+      color: var(--gold);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .hero-note p {
+      margin-top: 8px;
+      color: var(--milk);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      line-height: 1.1;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .event-card,
+    .review-card,
+    .advantage,
+    .contact-panel,
+    .form-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    }
+
+    .event-card {
+      min-height: 220px;
+      padding: 24px;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+    }
+
+    .event-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(198, 154, 85, 0.42);
+      background: linear-gradient(180deg, rgba(198, 154, 85, 0.09), rgba(255, 255, 255, 0.02));
+    }
+
+    .event-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 30px;
+      border: 1px solid rgba(198, 154, 85, 0.35);
+      border-radius: 50%;
+      color: var(--gold);
+      background: rgba(198, 154, 85, 0.08);
+    }
+
+    .event-card h3 {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .event-card p {
+      margin-top: 12px;
+      color: var(--muted-2);
+      font-size: .94rem;
+    }
+
+    .halls {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(198, 154, 85, 0.035));
+    }
+
+    .halls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .hall-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #171614;
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.22);
+      transition: transform .28s var(--ease), border-color .28s var(--ease);
+    }
+
+    .hall-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(198, 154, 85, 0.48);
+    }
+
+    .hall-image {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--graphite);
+    }
+
+    .hall-image img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.82) brightness(.8);
+      transition: transform .55s var(--ease);
+    }
+
+    .hall-card:hover .hall-image img {
+      transform: scale(1.05);
+    }
+
+    .capacity {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(245, 239, 228, 0.18);
+      border-radius: 999px;
+      color: #211509;
+      background: linear-gradient(135deg, #e1bc79, #ba8546);
+      font-size: .84rem;
+      font-weight: 800;
+    }
+
+    .hall-body {
+      padding: 26px;
+    }
+
+    .hall-body p {
+      margin: 16px 0 24px;
+      color: var(--muted);
+    }
+
+    .advantages-layout {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: clamp(24px, 5vw, 72px);
+      align-items: start;
+    }
+
+    .advantages-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .advantage {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .advantage::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 7px rgba(198, 154, 85, 0.1);
+    }
+
+    .advantage strong {
+      display: block;
+      color: var(--milk);
+      font-size: 1rem;
+    }
+
+    .advantage span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted-2);
+      font-size: .94rem;
+    }
+
+    .private {
+      padding: clamp(84px, 10vw, 150px) 0;
+      background:
+        linear-gradient(90deg, rgba(16, 16, 15, .92), rgba(16, 16, 15, .52), rgba(16, 16, 15, .88)),
+        url("https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1800&q=82") center / cover;
+    }
+
+    .private-card {
+      max-width: 710px;
+      padding: clamp(28px, 5vw, 54px);
+      border: 1px solid rgba(245, 239, 228, 0.16);
+      border-radius: var(--radius);
+      background: rgba(16, 16, 15, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .private-card p {
+      margin-top: 22px;
+      font-size: 1.08rem;
+    }
+
+    .private-card .btn {
+      margin-top: 34px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 260px;
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border: 0;
+      border-radius: var(--radius);
+      background: var(--graphite);
+      padding: 0;
+      isolation: isolate;
+    }
+
+    .gallery-item:nth-child(2),
+    .gallery-item:nth-child(5) {
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.86) brightness(.78);
+      transition: transform .45s var(--ease), filter .45s var(--ease);
+    }
+
+    .gallery-item::after {
+      content: attr(aria-label);
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1;
+      padding-top: 70px;
+      color: var(--milk);
+      font-weight: 700;
+      text-align: left;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62));
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .25s var(--ease), transform .25s var(--ease);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(.92) brightness(.9);
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reviews {
+      background: linear-gradient(180deg, rgba(198, 154, 85, 0.035), rgba(255, 255, 255, 0.015));
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .review-card {
+      min-height: 280px;
+      padding: 26px;
+    }
+
+    .quote {
+      display: block;
+      color: rgba(198, 154, 85, 0.62);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 5rem;
+      line-height: .75;
+    }
+
+    .review-card p {
+      color: #d8cdbb;
+    }
+
+    .review-card strong {
+      display: block;
+      margin-top: 26px;
+      color: var(--milk);
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: clamp(24px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .booking-note {
+      position: sticky;
+      top: 116px;
+    }
+
+    .booking-note .lead {
+      margin-top: 20px;
+    }
+
+    .form-panel {
+      padding: clamp(22px, 3.2vw, 38px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.058), rgba(255, 255, 255, 0.022));
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 650;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid rgba(245, 239, 228, 0.14);
+      border-radius: var(--radius);
+      color: var(--milk);
+      background: rgba(10, 10, 9, 0.36);
+      outline: none;
+      padding: 14px 15px;
+      transition: border-color .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+    }
+
+    select {
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+        linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+      background-position:
+        calc(100% - 19px) 22px,
+        calc(100% - 13px) 22px;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    textarea {
+      min-height: 126px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(198, 154, 85, 0.72);
+      background: rgba(10, 10, 9, 0.52);
+      box-shadow: 0 0 0 4px rgba(198, 154, 85, 0.08);
+    }
+
+    .form-panel .btn {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .form-status {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid rgba(198, 154, 85, 0.35);
+      border-radius: var(--radius);
+      color: #f7e3bf;
+      background: rgba(198, 154, 85, 0.09);
+    }
+
+    .form-status.is-visible {
+      display: block;
+    }
+
+    .contacts {
+      padding-top: 40px;
+    }
+
+    .contacts-layout {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 18px;
+    }
+
+    .contact-panel {
+      padding: clamp(26px, 4vw, 44px);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 18px;
+      margin: 34px 0;
+    }
+
+    .contact-list span {
+      display: block;
+      color: var(--muted-2);
+      font-size: .86rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .contact-list strong,
+    .contact-list a {
+      display: block;
+      margin-top: 5px;
+      color: var(--milk);
+      font-size: 1.08rem;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .map-wrap {
+      min-height: 530px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(198, 154, 85, .1), transparent 36%),
+        #161514;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 530px;
+      border: 0;
+      filter: grayscale(1) invert(.9) contrast(.88) brightness(.62);
+      opacity: .78;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: #0c0c0b;
+      padding: 46px 0 28px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr .85fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .footer-grid p {
+      max-width: 430px;
+      margin-top: 18px;
+      color: var(--muted-2);
+    }
+
+    .footer-title {
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .footer-links,
+    .footer-contacts {
+      display: grid;
+      gap: 9px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .footer-links a,
+    .footer-contacts a {
+      transition: color .2s var(--ease);
+    }
+
+    .footer-links a:hover,
+    .footer-contacts a:hover {
+      color: var(--gold);
+    }
+
+    .copyright {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(245, 239, 228, 0.08);
+      color: var(--muted-2);
+      font-size: .88rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(5, 5, 5, 0.88);
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox figure {
+      position: relative;
+      width: min(1040px, 100%);
+      margin: 0;
+    }
+
+    .lightbox img {
+      max-height: 82svh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: #111;
+    }
+
+    .lightbox figcaption {
+      margin-top: 14px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(245, 239, 228, 0.2);
+      border-radius: 50%;
+      color: var(--milk);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 120;
+      transform: translateY(-140%);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      color: #111;
+      background: var(--gold);
+      transition: transform .2s var(--ease);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .header-inner {
+        min-height: 74px;
+      }
+
+      .nav,
+      .header-actions > .btn {
+        display: none;
+      }
+
+      .icon-btn {
+        display: inline-flex;
+      }
+
+      .nav {
+        position: fixed;
+        top: 74px;
+        left: 16px;
+        right: 16px;
+        display: grid;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(18, 17, 15, .96);
+        box-shadow: var(--shadow);
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .22s var(--ease), opacity .22s var(--ease);
+      }
+
+      body.menu-open .nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav a {
+        padding: 15px 14px;
+        border-bottom: 1px solid rgba(245, 239, 228, .07);
+      }
+
+      .nav a:last-child {
+        border-bottom: 0;
+      }
+
+      .nav a::after {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 110px;
+      }
+
+      .hero-grid {
+        min-height: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-media {
+        min-height: 520px;
+      }
+
+      .hero-note {
+        right: 18px;
+      }
+
+      .events-grid,
+      .reviews-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .halls-grid,
+      .advantages-layout,
+      .booking-layout,
+      .contacts-layout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-note {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --container: min(100vw - 28px, 1180px);
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .brand strong {
+        font-size: 1.16rem;
+      }
+
+      .brand span {
+        font-size: .54rem;
+      }
+
+      .nav {
+        top: 68px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 100px 0 46px;
+      }
+
+      h1 {
+        font-size: clamp(2.55rem, 15vw, 4.2rem);
+      }
+
+      .hero-copy .lead {
+        margin-top: 20px;
+      }
+
+      .hero-cta,
+      .contact-actions {
+        flex-direction: column;
+      }
+
+      .hero-cta .btn,
+      .contact-actions .btn {
+        width: 100%;
+      }
+
+      .hero-facts {
+        grid-template-columns: 1fr;
+        margin-top: 34px;
+      }
+
+      .hero-fact {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .hero-media {
+        min-height: 420px;
+      }
+
+      .hero-note {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        width: auto;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      .events-grid,
+      .halls-grid,
+      .reviews-grid,
+      .form-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event-card {
+        min-height: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 260px;
+      }
+
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(5) {
+        grid-row: span 1;
+      }
+
+      .map-wrap,
+      .map-wrap iframe {
+        min-height: 360px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="RICH HALL, главная">
+        <strong>RICH HALL</strong>
+        <span>Minsk Event Space</span>
+      </a>
+
+      <nav class="nav" id="mobile-navigation" data-nav aria-label="Основная навигация">
+        <a href="#home">Главная</a>
+        <a href="#halls">Залы</a>
+        <a href="#events">Мероприятия</a>
+        <a href="#advantages">Преимущества</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary" href="#booking">Забронировать дату</a>
+        <button class="icon-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Открыть меню">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Центр Минска</p>
+          <h1>RICH HALL — банкетное пространство в центре Минска</h1>
+          <p class="lead">Свадьбы, корпоративы, конференции, дни рождения и камерные ужины в атмосфере элегантности и приватности.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#booking">
+              Забронировать дату
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+            </a>
+            <a class="btn btn-outline" href="#halls">Посмотреть залы</a>
+          </div>
+          <div class="hero-facts" aria-label="Ключевые преимущества RICH HALL">
+            <div class="hero-fact">
+              <strong>30-60</strong>
+              <span>гостей в разных залах</span>
+            </div>
+            <div class="hero-fact">
+              <strong>5 мин</strong>
+              <span>от метро Якуба Коласа</span>
+            </div>
+            <div class="hero-fact">
+              <strong>Private</strong>
+              <span>dining и камерные события</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-media reveal" style="transition-delay: .08s">
+          <div class="hero-photo">
+            <!-- Временное фото. Замените src на реальные фотографии RICH HALL из assets или Instagram. -->
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=82" alt="Элегантный банкетный зал с сервированными столами">
+          </div>
+          <div class="hero-note">
+            <span>Не классический банкет</span>
+            <p>Изящный сервис, приватность и сценарии под ваш формат.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="events">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Форматы</p>
+          <h2>Для каких мероприятий</h2>
+          <p class="lead">RICH HALL работает как банкетный зал Минск, ресторан для свадьбы Минск, зал для корпоратива Минск и камерное event-пространство для частных и деловых встреч.</p>
+        </div>
+
+        <div class="events-grid">
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10a5 5 0 0 1 10 0c0 5-5 9-5 9s-5-4-5-9Z"></path><path d="M12 10h.01"></path></svg></span>
+            <h3>Свадьбы</h3>
+            <p>Формат ресторана для свадьбы в Минске с атмосферной подачей, приватностью и залом под ваш круг гостей.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4z"></path><path d="M9 7V5h6v2"></path><path d="M4 12h16"></path></svg></span>
+            <h3>Корпоративы</h3>
+            <p>Формат зала для корпоратива в Минске: ужин, презентация, праздничная программа или камерный прием.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H4z"></path><path d="M8 21h8"></path><path d="M12 17v4"></path></svg></span>
+            <h3>Конференции</h3>
+            <p>Деловая встреча, обучение или конференция в центре города рядом с метро.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5"></path><path d="M8 8h8"></path><path d="M5 12h14v8H5z"></path><path d="M5 16h14"></path></svg></span>
+            <h3>Дни рождения</h3>
+            <p>Праздник без лишней суеты: красивый интерьер, сервис и удобная вместимость.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16"></path><path d="M6 10v9"></path><path d="M18 10v9"></path><path d="M8 6h8l2 4H6z"></path></svg></span>
+            <h3>Семейные ужины</h3>
+            <p>Теплый вечер с близкими в пространстве, где детали остаются под контролем.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18H7z"></path><path d="M10 8h4"></path><path d="M10 12h4"></path><path d="M10 16h4"></path></svg></span>
+            <h3>Private Dining</h3>
+            <p>Формат private dining Минск для закрытых встреч, дегустаций, семейных событий и особых поводов.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8a4 4 0 1 0 0 8"></path><path d="M17 8a4 4 0 1 1 0 8"></path><path d="M8 12h8"></path></svg></span>
+            <h3>Нетворкинги</h3>
+            <p>Атмосферный формат для новых знакомств, деловых контактов и клубных вечеров.</p>
+          </article>
+          <article class="event-card reveal">
+            <span class="event-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5l14 7-14 7Z"></path></svg></span>
+            <h3>Презентации</h3>
+            <p>Лаконичное пространство для запуска продукта, пресс-встречи или закрытого показа.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section halls" id="halls">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Наши залы</p>
+          <h2>Одно пространство - множество сценариев для вашего события.</h2>
+          <p class="lead">Это банкетное пространство Минск с несколькими залами: от private dining до полноценного торжества.</p>
+        </div>
+
+        <div class="halls-grid">
+          <article class="hall-card reveal">
+            <div class="hall-image">
+              <!-- Временное фото. Замените на фото камерного зала RICH HALL. -->
+              <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=82" alt="Камерный зал RICH HALL">
+              <span class="capacity">до 30 гостей</span>
+            </div>
+            <div class="hall-body">
+              <h3>Камерный зал</h3>
+              <p>Интимная атмосфера для private dining, семейных ужинов, небольших праздников и важных разговоров.</p>
+              <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
+            </div>
+          </article>
+
+          <article class="hall-card reveal">
+            <div class="hall-image">
+              <!-- Временное фото. Замените на фото классического зала RICH HALL. -->
+              <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=82" alt="Классический зал RICH HALL">
+              <span class="capacity">до 50 гостей</span>
+            </div>
+            <div class="hall-body">
+              <h3>Классический зал</h3>
+              <p>Сбалансированный формат для свадеб, корпоративов, дней рождения и событий с ведущим.</p>
+              <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
+            </div>
+          </article>
+
+          <article class="hall-card reveal">
+            <div class="hall-image">
+              <!-- Временное фото. Замените на фото просторного зала RICH HALL. -->
+              <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=82" alt="Просторный зал RICH HALL">
+              <span class="capacity">до 60 гостей</span>
+            </div>
+            <div class="hall-body">
+              <h3>Просторный зал</h3>
+              <p>Больше воздуха, света и свободы для торжества, деловой программы или презентации.</p>
+              <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="advantages">
+      <div class="container advantages-layout">
+        <div class="section-head reveal">
+          <p class="eyebrow">Преимущества</p>
+          <h2>Почему выбирают RICH HALL</h2>
+          <p class="lead">Здесь легко собрать событие высокого уровня: от расположения до сервиса и ощущения приватного вечера.</p>
+        </div>
+
+        <div class="advantages-list">
+          <div class="advantage reveal"><div><strong>Удобная локация в центре Минска</strong><span>Проспект Независимости, рядом метро Площадь Якуба Коласа.</span></div></div>
+          <div class="advantage reveal"><div><strong>Несколько залов под разные форматы</strong><span>Камерные и более просторные сценарии без ощущения типового кафе.</span></div></div>
+          <div class="advantage reveal"><div><strong>Изящный банкетный сервис</strong><span>Внимание к подаче, таймингу и деталям вечера.</span></div></div>
+          <div class="advantage reveal"><div><strong>Атмосферный интерьер</strong><span>Графит, теплый свет и ресторанная эстетика для красивых кадров.</span></div></div>
+          <div class="advantage reveal"><div><strong>Камерные и крупные мероприятия</strong><span>Залы до 30, 50 и 60 гостей под разные задачи.</span></div></div>
+          <div class="advantage reveal"><div><strong>Индивидуальный подход</strong><span>Формат, посадка и детали согласуются под событие.</span></div></div>
+          <div class="advantage reveal"><div><strong>Для праздников, ужинов и встреч</strong><span>Свадьбы, корпоративы, конференции, семейные ужины и презентации.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="private" id="private-dining">
+      <div class="container">
+        <div class="private-card reveal">
+          <p class="eyebrow">Private Dining</p>
+          <h2>Private Dining в RICH HALL</h2>
+          <p>Формат для тех, кто хочет провести вечер в приватной атмосфере: семейный ужин, встреча с друзьями, камерный праздник или особое событие без лишней суеты.</p>
+          <a class="btn btn-primary" href="#booking">Оставить заявку</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Галерея</p>
+          <h2>Атмосфера пространства</h2>
+          <p class="lead">Временные изображения можно заменить на реальные фотографии RICH HALL в папке assets или ссылками из Instagram.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Временные фото. Для продакшена замените src и data-full на реальные фотографии RICH HALL. -->
+          <button class="gallery-item reveal" type="button" aria-label="Банкетная сервировка" data-full="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80" alt="Банкетная сервировка">
+          </button>
+          <button class="gallery-item reveal" type="button" aria-label="Элегантный зал" data-full="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80" alt="Элегантный зал">
+          </button>
+          <button class="gallery-item reveal" type="button" aria-label="Ресторанный свет" data-full="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Ресторанный свет">
+          </button>
+          <button class="gallery-item reveal" type="button" aria-label="Свадебная посадка" data-full="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=80" alt="Свадебная посадка">
+          </button>
+          <button class="gallery-item reveal" type="button" aria-label="Камерный ужин" data-full="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80" alt="Камерный ужин">
+          </button>
+          <button class="gallery-item reveal" type="button" aria-label="Праздничный вечер" data-full="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1600&q=86">
+            <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=80" alt="Праздничный вечер">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Отзывы</p>
+          <h2>Гости о RICH HALL</h2>
+          <p class="lead">Несколько отзывов-заготовок в премиальном формате. Их легко заменить на реальные цитаты гостей.</p>
+        </div>
+
+        <div class="reviews-grid">
+          <article class="review-card reveal">
+            <span class="quote">“</span>
+            <p>Очень красивое пространство для семейного праздника. Все прошло спокойно, приватно и с ощущением ресторана высокого уровня.</p>
+            <strong>Гость RICH HALL</strong>
+          </article>
+          <article class="review-card reveal">
+            <span class="quote">“</span>
+            <p>Выбрали зал для корпоратива: удобная локация, приятный интерьер, команда помогла с деталями и таймингом вечера.</p>
+            <strong>Анна</strong>
+          </article>
+          <article class="review-card reveal">
+            <span class="quote">“</span>
+            <p>Понравилось, что это не обычный банкетный зал. Атмосфера камерная, стильная, без лишнего шума и перегруза.</p>
+            <strong>Гость RICH HALL</strong>
+          </article>
+          <article class="review-card reveal">
+            <span class="quote">“</span>
+            <p>Проводили ужин с близкими. Все выглядело очень достойно: свет, сервировка, посадка и общее настроение вечера.</p>
+            <strong>Мария</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="container booking-layout">
+        <div class="booking-note reveal">
+          <p class="eyebrow">Бронирование</p>
+          <h2>Забронировать дату</h2>
+          <p class="lead">Оставьте заявку, и команда RICH HALL свяжется с вами для уточнения формата, количества гостей и свободных дат.</p>
+        </div>
+
+        <form class="form-panel reveal" data-booking-form>
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Имя</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+375" required>
+            </div>
+            <div class="field">
+              <label for="event-type">Тип мероприятия</label>
+              <select id="event-type" name="eventType" required>
+                <option value="">Выберите формат</option>
+                <option>Свадьба</option>
+                <option>Корпоратив</option>
+                <option>Конференция</option>
+                <option>День рождения</option>
+                <option>Семейный ужин</option>
+                <option>Private Dining</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="guests">Количество гостей</label>
+              <input id="guests" name="guests" type="number" min="1" max="80" inputmode="numeric" required>
+            </div>
+            <div class="field field-full">
+              <label for="date">Желаемая дата</label>
+              <input id="date" name="date" type="date">
+            </div>
+            <div class="field field-full">
+              <label for="comment">Комментарий</label>
+              <textarea id="comment" name="comment" placeholder="Расскажите о событии, пожеланиях по залу и времени"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Отправить заявку</button>
+          <div class="form-status" role="status" aria-live="polite" data-form-status>Спасибо! Мы свяжемся с вами для уточнения деталей.</div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+      <div class="container contacts-layout">
+        <div class="contact-panel reveal">
+          <p class="eyebrow">Контакты</p>
+          <h2>RICH HALL</h2>
+          <div class="contact-list">
+            <div>
+              <span>Адрес</span>
+              <strong>Минск, проспект Независимости, 56А</strong>
+            </div>
+            <div>
+              <span>Метро рядом</span>
+              <strong>Площадь Якуба Коласа</strong>
+            </div>
+            <div>
+              <span>Телефон</span>
+              <a href="tel:+375291726666">+375 29 172 66 66</a>
+            </div>
+            <div>
+              <span>Instagram</span>
+              <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">@richhall_minsk</a>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-primary contact-action" href="tel:+375291726666">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8 9.72a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"></path></svg>
+              Позвонить
+            </a>
+            <a class="btn btn-outline contact-action" href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">
+              Открыть Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="map-wrap reveal" aria-label="Карта: RICH HALL, Минск, проспект Независимости, 56А">
+          <iframe title="RICH HALL на карте" src="https://yandex.com/map-widget/v1/?ll=27.589339%2C53.916546&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzExNzI0NRJS0JHQtdC70LDRgNGD0YHRjCwg0JzRltC90YHQuiwg0L_RgNCw0YHQv9C10LrRgiDQndC10LfQsNC70LXQttC90LDRgdGG0ZYsIDU20JAiCg0N9txCFbGpV0I%2C&z=16"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="#home" aria-label="RICH HALL, главная">
+            <strong>RICH HALL</strong>
+            <span>Minsk Event Space</span>
+          </a>
+          <p>Премиальное банкетное пространство в центре Минска для свадеб, корпоративов, конференций, private dining и камерных праздников.</p>
+        </div>
+        <div>
+          <div class="footer-title">Навигация</div>
+          <div class="footer-links">
+            <a href="#halls">Залы</a>
+            <a href="#events">Мероприятия</a>
+            <a href="#advantages">Преимущества</a>
+            <a href="#gallery">Галерея</a>
+            <a href="#booking">Забронировать дату</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Контакты</div>
+          <div class="footer-contacts">
+            <a href="tel:+375291726666">+375 29 172 66 66</a>
+            <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">@richhall_minsk</a>
+            <span>Минск, проспект Независимости, 56А / 56</span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© 2026 RICH HALL. Банкетный зал и event-пространство в Минске.</div>
+    </div>
+  </footer>
+
+  <div class="lightbox" data-lightbox aria-hidden="true">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть галерею">×</button>
+    <figure>
+      <img src="" alt="" data-lightbox-image>
+      <figcaption data-lightbox-caption></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    const body = document.body;
+    const header = document.querySelector("[data-header]");
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const nav = document.querySelector("[data-nav]");
+    const revealItems = document.querySelectorAll(".reveal");
+    const bookingForm = document.querySelector("[data-booking-form]");
+    const formStatus = document.querySelector("[data-form-status]");
+    const lightbox = document.querySelector("[data-lightbox]");
+    const lightboxImage = document.querySelector("[data-lightbox-image]");
+    const lightboxCaption = document.querySelector("[data-lightbox-caption]");
+    const lightboxClose = document.querySelector("[data-lightbox-close]");
+
+    function setHeaderState() {
+      header.classList.toggle("is-scrolled", window.scrollY > 12);
+    }
+
+    function closeMenu() {
+      body.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const formData = new FormData(bookingForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      // Здесь можно подключить Telegram Bot, email-сервис или CRM.
+      console.info("RICH HALL booking request:", payload);
+
+      bookingForm.reset();
+      formStatus.classList.add("is-visible");
+      window.setTimeout(() => formStatus.classList.remove("is-visible"), 6200);
+    }
+
+    setHeaderState();
+    window.addEventListener("scroll", setHeaderState, { passive: true });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = body.classList.toggle("menu-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+        closeLightbox();
+      }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -40px 0px" });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+
+    bookingForm.addEventListener("submit", handleSubmit);
+
+    function openLightbox(button) {
+      const image = button.querySelector("img");
+      lightboxImage.src = button.dataset.full || image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = button.getAttribute("aria-label") || image.alt;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      body.classList.add("lightbox-open");
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      if (!lightbox.classList.contains("is-open")) return;
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      body.classList.remove("lightbox-open");
+      lightboxImage.src = "";
+    }
+
+    document.querySelectorAll(".gallery-item").forEach((button) => {
+      button.addEventListener("click", () => openLightbox(button));
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+  </script>
+</body>
+</html>
