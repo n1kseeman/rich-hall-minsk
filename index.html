@@ -6,6 +6,14 @@
   <title>RICH HALL — банкетный зал в Минске</title>
   <meta name="description" content="Банкетное пространство RICH HALL в центре Минска для свадеб, корпоративов, конференций, дней рождения и private dining.">
   <meta name="theme-color" content="#10100f">
+  <meta name="format-detection" content="telephone=no">
+  <meta property="og:title" content="RICH HALL — банкетный зал в Минске">
+  <meta property="og:description" content="Свадьбы, корпоративы, конференции и камерные события в центре Минска.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_BY">
+  <meta property="og:url" content="https://n1kseeman.github.io/rich-hall-minsk/">
+  <link rel="canonical" href="https://n1kseeman.github.io/rich-hall-minsk/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://www.openstreetmap.org">
   <style>
@@ -34,6 +42,7 @@
     html {
       scroll-behavior: smooth;
       background: var(--bg);
+      color-scheme: dark;
     }
 
     body {
@@ -63,6 +72,10 @@
       text-decoration: none;
     }
 
+    section[id] {
+      scroll-margin-top: 88px;
+    }
+
     button,
     input,
     select,
@@ -72,6 +85,11 @@
 
     button {
       cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
     }
 
     ::selection {
@@ -503,7 +521,7 @@
 
     .halls-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
 
@@ -719,6 +737,18 @@
       color: var(--milk);
     }
 
+    .review-source {
+      display: inline-flex;
+      margin-top: 8px;
+      color: var(--gold);
+      font-size: .82rem;
+      transition: color .2s var(--ease);
+    }
+
+    .review-source:hover {
+      color: #f0c982;
+    }
+
     .booking-layout {
       display: grid;
       grid-template-columns: .86fr 1.14fr;
@@ -805,6 +835,27 @@
       margin-top: 18px;
     }
 
+    .form-panel .btn:disabled {
+      cursor: wait;
+      opacity: .72;
+      transform: none;
+    }
+
+    .form-help {
+      margin-top: 14px;
+      color: var(--muted-2);
+      font-size: .82rem;
+      text-align: center;
+    }
+
+    .field-honeypot {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
     .form-status {
       display: none;
       margin-top: 18px;
@@ -817,6 +868,12 @@
 
     .form-status.is-visible {
       display: block;
+    }
+
+    .form-status.is-error {
+      border-color: rgba(205, 103, 91, 0.42);
+      color: #ffd6d0;
+      background: rgba(173, 65, 52, 0.12);
     }
 
     .contacts {
@@ -1226,6 +1283,13 @@
       }
     }
 
+    @media (hover: none) {
+      .gallery-item::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -1291,8 +1355,8 @@
           </div>
           <div class="hero-facts" aria-label="Ключевые преимущества RICH HALL">
             <div class="hero-fact">
-              <strong>30-60</strong>
-              <span>гостей в разных залах</span>
+              <strong>2 зала</strong>
+              <span>под разные форматы событий</span>
             </div>
             <div class="hero-fact">
               <strong>5 мин</strong>
@@ -1308,7 +1372,7 @@
         <div class="hero-media reveal" style="transition-delay: .08s">
           <div class="hero-photo">
             <!-- Временное фото. Замените src на реальные фотографии RICH HALL из assets или Instagram. -->
-            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=82" alt="Элегантный банкетный зал с сервированными столами">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=82" alt="Элегантный банкетный зал с сервированными столами" width="1200" height="1600" fetchpriority="high" decoding="async">
           </div>
           <div class="hero-note">
             <span>Не классический банкет</span>
@@ -1323,7 +1387,7 @@
         <div class="section-head reveal">
           <p class="eyebrow">Форматы</p>
           <h2>Для каких мероприятий</h2>
-          <p class="lead">RICH HALL работает как банкетный зал Минск, ресторан для свадьбы Минск, зал для корпоратива Минск и камерное event-пространство для частных и деловых встреч.</p>
+          <p class="lead">Свадьбы и дни рождения, корпоративные и деловые события — подберём зал и сценарий под ваш формат.</p>
         </div>
 
         <div class="events-grid">
@@ -1375,46 +1439,33 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Наши залы</p>
-          <h2>Одно пространство - множество сценариев для вашего события.</h2>
-          <p class="lead">Это банкетное пространство Минск с несколькими залами: от private dining до полноценного торжества.</p>
+          <h2>Одно пространство — множество сценариев для вашего события</h2>
+          <p class="lead">Два зала для разных форматов: от приватного ужина до полноценного торжества.</p>
         </div>
 
         <div class="halls-grid">
           <article class="hall-card reveal">
             <div class="hall-image">
-              <!-- Временное фото. Замените на фото камерного зала RICH HALL. -->
-              <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=82" alt="Камерный зал RICH HALL">
-              <span class="capacity">до 30 гостей</span>
+              <!-- Временное фото. Замените на фото Римского зала RICH HALL. -->
+              <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=82" alt="Римский зал RICH HALL" width="900" height="675" loading="lazy" decoding="async">
+              <span class="capacity">торжественная атмосфера</span>
             </div>
             <div class="hall-body">
-              <h3>Камерный зал</h3>
-              <p>Интимная атмосфера для private dining, семейных ужинов, небольших праздников и важных разговоров.</p>
+              <h3>Римский зал</h3>
+              <p>Выразительный интерьер для юбилеев, семейных праздников, private dining и торжественных вечеров.</p>
               <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
             </div>
           </article>
 
           <article class="hall-card reveal">
             <div class="hall-image">
-              <!-- Временное фото. Замените на фото классического зала RICH HALL. -->
-              <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=82" alt="Классический зал RICH HALL">
-              <span class="capacity">до 50 гостей</span>
+              <!-- Временное фото. Замените на фото Бежевого зала RICH HALL. -->
+              <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=82" alt="Бежевый зал RICH HALL" width="900" height="675" loading="lazy" decoding="async">
+              <span class="capacity">гибкое зонирование</span>
             </div>
             <div class="hall-body">
-              <h3>Классический зал</h3>
-              <p>Сбалансированный формат для свадеб, корпоративов, дней рождения и событий с ведущим.</p>
-              <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
-            </div>
-          </article>
-
-          <article class="hall-card reveal">
-            <div class="hall-image">
-              <!-- Временное фото. Замените на фото просторного зала RICH HALL. -->
-              <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=82" alt="Просторный зал RICH HALL">
-              <span class="capacity">до 60 гостей</span>
-            </div>
-            <div class="hall-body">
-              <h3>Просторный зал</h3>
-              <p>Больше воздуха, света и свободы для торжества, деловой программы или презентации.</p>
+              <h3>Бежевый зал</h3>
+              <p>Светлое пространство для свадеб, корпоративов и праздников с возможностью задействовать холл под дополнительные зоны.</p>
               <a class="btn btn-outline" href="#booking">Узнать свободные даты</a>
             </div>
           </article>
@@ -1435,7 +1486,7 @@
           <div class="advantage reveal"><div><strong>Несколько залов под разные форматы</strong><span>Камерные и более просторные сценарии без ощущения типового кафе.</span></div></div>
           <div class="advantage reveal"><div><strong>Изящный банкетный сервис</strong><span>Внимание к подаче, таймингу и деталям вечера.</span></div></div>
           <div class="advantage reveal"><div><strong>Атмосферный интерьер</strong><span>Графит, теплый свет и ресторанная эстетика для красивых кадров.</span></div></div>
-          <div class="advantage reveal"><div><strong>Камерные и крупные мероприятия</strong><span>Залы до 30, 50 и 60 гостей под разные задачи.</span></div></div>
+          <div class="advantage reveal"><div><strong>Камерные и крупные мероприятия</strong><span>Римский и Бежевый залы под разные сценарии и варианты рассадки.</span></div></div>
           <div class="advantage reveal"><div><strong>Индивидуальный подход</strong><span>Формат, посадка и детали согласуются под событие.</span></div></div>
           <div class="advantage reveal"><div><strong>Для праздников, ужинов и встреч</strong><span>Свадьбы, корпоративы, конференции, семейные ужины и презентации.</span></div></div>
         </div>
@@ -1458,28 +1509,28 @@
         <div class="section-head reveal">
           <p class="eyebrow">Галерея</p>
           <h2>Атмосфера пространства</h2>
-          <p class="lead">Временные изображения можно заменить на реальные фотографии RICH HALL в папке assets или ссылками из Instagram.</p>
+          <p class="lead">Сервировка, свет и детали интерьера создают настроение для камерного ужина, деловой встречи или большого торжества.</p>
         </div>
 
         <div class="gallery-grid">
           <!-- Временные фото. Для продакшена замените src и data-full на реальные фотографии RICH HALL. -->
           <button class="gallery-item reveal" type="button" aria-label="Банкетная сервировка" data-full="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80" alt="Банкетная сервировка">
+            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80" alt="Банкетная сервировка" width="900" height="675" loading="lazy" decoding="async">
           </button>
           <button class="gallery-item reveal" type="button" aria-label="Элегантный зал" data-full="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80" alt="Элегантный зал">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80" alt="Элегантный зал" width="900" height="1200" loading="lazy" decoding="async">
           </button>
           <button class="gallery-item reveal" type="button" aria-label="Ресторанный свет" data-full="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Ресторанный свет">
+            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Ресторанный свет" width="900" height="675" loading="lazy" decoding="async">
           </button>
           <button class="gallery-item reveal" type="button" aria-label="Свадебная посадка" data-full="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=80" alt="Свадебная посадка">
+            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=80" alt="Свадебная посадка" width="900" height="675" loading="lazy" decoding="async">
           </button>
           <button class="gallery-item reveal" type="button" aria-label="Камерный ужин" data-full="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80" alt="Камерный ужин">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80" alt="Камерный ужин" width="900" height="1200" loading="lazy" decoding="async">
           </button>
           <button class="gallery-item reveal" type="button" aria-label="Праздничный вечер" data-full="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1600&q=86">
-            <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=80" alt="Праздничный вечер">
+            <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=80" alt="Праздничный вечер" width="900" height="675" loading="lazy" decoding="async">
           </button>
         </div>
       </div>
@@ -1490,29 +1541,33 @@
         <div class="section-head reveal">
           <p class="eyebrow">Отзывы</p>
           <h2>Гости о RICH HALL</h2>
-          <p class="lead">Несколько отзывов-заготовок в премиальном формате. Их легко заменить на реальные цитаты гостей.</p>
+          <p class="lead">Больше всего гости ценят приватную атмосферу, внимательный сервис и возможность настроить пространство под свой формат.</p>
         </div>
 
         <div class="reviews-grid">
           <article class="review-card reveal">
             <span class="quote">“</span>
-            <p>Очень красивое пространство для семейного праздника. Все прошло спокойно, приватно и с ощущением ресторана высокого уровня.</p>
-            <strong>Гость RICH HALL</strong>
+            <p>Праздновали юбилей в Римском зале. Особенно запомнились кухня, внимательный персонал и красивые локации для фотографий.</p>
+            <strong>Мария Богодяж</strong>
+            <a class="review-source" href="https://yandex.com/maps/org/rich_hall/111047033767/reviews/" target="_blank" rel="noopener">Отзыв на Яндекс Картах</a>
           </article>
           <article class="review-card reveal">
             <span class="quote">“</span>
-            <p>Выбрали зал для корпоратива: удобная локация, приятный интерьер, команда помогла с деталями и таймингом вечера.</p>
-            <strong>Анна</strong>
+            <p>Для свадьбы выбрали Бежевый зал. Понравились гибкие условия, разнообразное меню и возможность организовать дополнительные зоны в холле.</p>
+            <strong>Ксения Титович</strong>
+            <a class="review-source" href="https://yandex.com/maps/org/rich_hall/111047033767/reviews/" target="_blank" rel="noopener">Отзыв на Яндекс Картах</a>
           </article>
           <article class="review-card reveal">
             <span class="quote">“</span>
-            <p>Понравилось, что это не обычный банкетный зал. Атмосфера камерная, стильная, без лишнего шума и перегруза.</p>
-            <strong>Гость RICH HALL</strong>
+            <p>Просторный стильный зал, доброжелательная команда и внимание ко всем просьбам во время подготовки мероприятия.</p>
+            <strong>Андрей П.</strong>
+            <a class="review-source" href="https://yandex.com/maps/org/rich_hall/111047033767/reviews/" target="_blank" rel="noopener">Отзыв на Яндекс Картах</a>
           </article>
           <article class="review-card reveal">
             <span class="quote">“</span>
-            <p>Проводили ужин с близкими. Все выглядело очень достойно: свет, сервировка, посадка и общее настроение вечера.</p>
-            <strong>Мария</strong>
+            <p>После просмотра площадки сомнений в выборе не осталось. Банкетный менеджер помог с меню, а само событие прошло атмосферно.</p>
+            <strong>Артур Михайлов</strong>
+            <a class="review-source" href="https://2gis.by/minsk/firm/70000001108870460/tab/reviews" target="_blank" rel="noopener">Отзыв в 2ГИС</a>
           </article>
         </div>
       </div>
@@ -1526,15 +1581,15 @@
           <p class="lead">Оставьте заявку, и команда RICH HALL свяжется с вами для уточнения формата, количества гостей и свободных дат.</p>
         </div>
 
-        <form class="form-panel reveal" data-booking-form>
+        <form class="form-panel reveal" method="post" data-booking-form data-form-endpoint="" aria-describedby="form-help form-status">
           <div class="form-grid">
             <div class="field">
               <label for="name">Имя</label>
-              <input id="name" name="name" type="text" autocomplete="name" required>
+              <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
             </div>
             <div class="field">
               <label for="phone">Телефон</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+375" required>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+375 29 000 00 00" pattern="[+0-9\s()\-]{7,24}" title="Введите номер телефона" required>
             </div>
             <div class="field">
               <label for="event-type">Тип мероприятия</label>
@@ -1551,19 +1606,24 @@
             </div>
             <div class="field">
               <label for="guests">Количество гостей</label>
-              <input id="guests" name="guests" type="number" min="1" max="80" inputmode="numeric" required>
+              <input id="guests" name="guests" type="number" min="1" max="300" inputmode="numeric" required>
             </div>
             <div class="field field-full">
               <label for="date">Желаемая дата</label>
-              <input id="date" name="date" type="date">
+              <input id="date" name="date" type="date" data-event-date>
             </div>
             <div class="field field-full">
               <label for="comment">Комментарий</label>
-              <textarea id="comment" name="comment" placeholder="Расскажите о событии, пожеланиях по залу и времени"></textarea>
+              <textarea id="comment" name="comment" maxlength="1000" placeholder="Расскажите о событии, пожеланиях по залу и времени"></textarea>
+            </div>
+            <div class="field-honeypot" aria-hidden="true">
+              <label for="website">Не заполняйте это поле</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">Отправить заявку</button>
-          <div class="form-status" role="status" aria-live="polite" data-form-status>Спасибо! Мы свяжемся с вами для уточнения деталей.</div>
+          <button class="btn btn-primary" type="submit" data-submit-button>Отправить заявку</button>
+          <p class="form-help" id="form-help">Отправляя форму, вы соглашаетесь на обработку данных для связи по заявке.</p>
+          <div class="form-status" id="form-status" role="status" aria-live="polite" data-form-status></div>
         </form>
       </div>
     </section>
@@ -1606,7 +1666,7 @@
         </div>
 
         <div class="map-wrap reveal" aria-label="Карта: RICH HALL, Минск, проспект Независимости, 56А">
-          <iframe title="RICH HALL на карте" src="https://www.openstreetmap.org/export/embed.html?bbox=27.581739%2C53.912946%2C27.596939%2C53.920146&layer=mapnik&marker=53.916546%2C27.589339"></iframe>
+          <iframe title="RICH HALL на карте" src="https://www.openstreetmap.org/export/embed.html?bbox=27.581739%2C53.912946%2C27.596939%2C53.920146&layer=mapnik&marker=53.916546%2C27.589339" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="map-card" aria-hidden="true">
             <strong>RICH HALL</strong>
             <span>Минск, проспект Независимости, 56А. Рядом метро Площадь Якуба Коласа.</span>
@@ -1641,7 +1701,7 @@
           <div class="footer-contacts">
             <a href="tel:+375296521515">+375 29 652 15 15</a>
             <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">@richhall_minsk</a>
-            <span>Минск, проспект Независимости, 56А / 56</span>
+            <span>Минск, проспект Независимости, 56А</span>
           </div>
         </div>
       </div>
@@ -1649,7 +1709,7 @@
     </div>
   </footer>
 
-  <div class="lightbox" data-lightbox aria-hidden="true">
+  <div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Просмотр фотографии" aria-hidden="true">
     <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть галерею">×</button>
     <figure>
       <img src="" alt="" data-lightbox-image>
@@ -1665,6 +1725,8 @@
     const revealItems = document.querySelectorAll(".reveal");
     const bookingForm = document.querySelector("[data-booking-form]");
     const formStatus = document.querySelector("[data-form-status]");
+    const submitButton = document.querySelector("[data-submit-button]");
+    const eventDate = document.querySelector("[data-event-date]");
     const lightbox = document.querySelector("[data-lightbox]");
     const lightboxImage = document.querySelector("[data-lightbox-image]");
     const lightboxCaption = document.querySelector("[data-lightbox-caption]");
@@ -1677,28 +1739,68 @@
     function closeMenu() {
       body.classList.remove("menu-open");
       menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Открыть меню");
     }
 
-    function handleSubmit(event) {
+    let lightboxTrigger = null;
+
+    function showFormStatus(message, type = "success") {
+      formStatus.textContent = message;
+      formStatus.classList.toggle("is-error", type === "error");
+      formStatus.classList.add("is-visible");
+    }
+
+    async function handleSubmit(event) {
       event.preventDefault();
 
       const formData = new FormData(bookingForm);
-      const payload = Object.fromEntries(formData.entries());
+      const endpoint = bookingForm.dataset.formEndpoint.trim();
 
-      // Здесь можно подключить Telegram Bot, email-сервис или CRM.
-      console.info("RICH HALL booking request:", payload);
+      if (formData.get("website")) return;
 
-      bookingForm.reset();
-      formStatus.classList.add("is-visible");
-      window.setTimeout(() => formStatus.classList.remove("is-visible"), 6200);
+      if (!endpoint) {
+        showFormStatus("Онлайн-отправка настраивается. Пожалуйста, позвоните нам по номеру +375 29 652 15 15.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Отправляем…";
+      formStatus.classList.remove("is-visible", "is-error");
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData
+        });
+
+        if (!response.ok) throw new Error(`Form request failed: ${response.status}`);
+
+        bookingForm.reset();
+        showFormStatus("Спасибо! Заявка отправлена. Мы свяжемся с вами для уточнения деталей.");
+      } catch (error) {
+        showFormStatus("Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам по номеру +375 29 652 15 15.", "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Отправить заявку";
+      }
     }
 
+    const today = new Date();
+    const localToday = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0")
+    ].join("-");
+
     setHeaderState();
+    eventDate.min = localToday;
     window.addEventListener("scroll", setHeaderState, { passive: true });
 
     menuToggle.addEventListener("click", () => {
       const isOpen = body.classList.toggle("menu-open");
       menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Закрыть меню" : "Открыть меню");
     });
 
     nav.addEventListener("click", (event) => {
@@ -1729,6 +1831,7 @@
 
     function openLightbox(button) {
       const image = button.querySelector("img");
+      lightboxTrigger = button;
       lightboxImage.src = button.dataset.full || image.src;
       lightboxImage.alt = image.alt;
       lightboxCaption.textContent = button.getAttribute("aria-label") || image.alt;
@@ -1744,6 +1847,8 @@
       lightbox.setAttribute("aria-hidden", "true");
       body.classList.remove("lightbox-open");
       lightboxImage.src = "";
+      lightboxTrigger?.focus();
+      lightboxTrigger = null;
     }
 
     document.querySelectorAll(".gallery-item").forEach((button) => {
