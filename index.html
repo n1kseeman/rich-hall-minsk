@@ -521,8 +521,18 @@
 
     .halls-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
       gap: 18px;
+    }
+
+    .halls-empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+      background: #171614;
     }
 
     .hall-card {
@@ -1440,10 +1450,10 @@
         <div class="section-head reveal">
           <p class="eyebrow">Наши залы</p>
           <h2>Одно пространство — множество сценариев для вашего события</h2>
-          <p class="lead">Два зала для разных форматов: от приватного ужина до полноценного торжества.</p>
+          <p class="lead">Залы для разных форматов: от приватного ужина до полноценного торжества.</p>
         </div>
 
-        <div class="halls-grid">
+        <div class="halls-grid" data-halls-grid>
           <article class="hall-card reveal">
             <div class="hall-image">
               <!-- Временное фото. Замените на фото Римского зала RICH HALL. -->
@@ -1717,6 +1727,7 @@
     </figure>
   </div>
 
+  <script src="assets/halls-site.js"></script>
   <script>
     const body = document.body;
     const header = document.querySelector("[data-header]");

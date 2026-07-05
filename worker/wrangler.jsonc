@@ -1,0 +1,15 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "rich-hall-admin-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-05",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "ADMIN_USERNAME": "admin",
+    "GITHUB_OWNER": "n1kseeman",
+    "GITHUB_REPO": "rich-hall-minsk",
+    "GITHUB_BRANCH": "main",
+    "ALLOWED_ORIGINS": "https://n1kseeman.github.io,http://localhost:4173,http://127.0.0.1:4173"
+  }
+}

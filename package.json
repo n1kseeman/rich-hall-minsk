@@ -1,0 +1,16 @@
+{
+  "name": "rich-hall-minsk",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "worker:login": "wrangler login",
+    "worker:dev": "wrangler dev --config worker/wrangler.jsonc",
+    "worker:deploy": "wrangler deploy --config worker/wrangler.jsonc",
+    "worker:secret:password": "wrangler secret put ADMIN_PASSWORD_HASH --config worker/wrangler.jsonc",
+    "worker:secret:session": "wrangler secret put SESSION_SECRET --config worker/wrangler.jsonc",
+    "worker:secret:github": "wrangler secret put GITHUB_TOKEN --config worker/wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

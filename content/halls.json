@@ -1,0 +1,18 @@
+{
+  "halls": [
+    {
+      "id": "roman-hall",
+      "title": "Римский зал",
+      "description": "Выразительный интерьер для юбилеев, семейных праздников, private dining и торжественных вечеров.",
+      "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=82",
+      "tagline": "торжественная атмосфера"
+    },
+    {
+      "id": "beige-hall",
+      "title": "Бежевый зал",
+      "description": "Светлое пространство для свадеб, корпоративов и праздников с возможностью задействовать холл под дополнительные зоны.",
+      "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=82",
+      "tagline": "гибкое зонирование"
+    }
+  ]
+}

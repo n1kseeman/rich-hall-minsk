@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#11100f">
+  <title>Админка — RICH HALL Minsk</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Вернуться на сайт RICH HALL">
+      <strong>RICH HALL</strong>
+      <span>управление залами</span>
+    </a>
+    <a class="site-link" href="../" target="_blank" rel="noopener">Открыть сайт</a>
+  </header>
+
+  <main class="shell">
+    <section class="login-panel" data-login-view>
+      <p class="eyebrow">Закрытый раздел</p>
+      <h1>Вход в админку</h1>
+      <p class="intro">Введите логин и пароль администратора.</p>
+
+      <form class="login-form" data-login-form>
+        <label>
+          <span>Логин</span>
+          <input name="username" type="text" value="admin" autocomplete="username" required>
+        </label>
+        <label>
+          <span>Пароль</span>
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="button button-primary" type="submit" data-login-button>Войти</button>
+        <p class="status" role="status" aria-live="polite" data-login-status></p>
+      </form>
+    </section>
+
+    <section class="editor" data-editor-view hidden>
+      <div class="editor-heading">
+        <div>
+          <p class="eyebrow">Залы RICH HALL</p>
+          <h1>Редактирование</h1>
+          <p class="intro">Изменения появятся на сайте после публикации GitHub Pages.</p>
+        </div>
+        <div class="heading-actions">
+          <button class="button button-secondary" type="button" data-add-hall>+ Добавить зал</button>
+          <button class="text-button" type="button" data-logout>Выйти</button>
+        </div>
+      </div>
+
+      <div class="halls-list" data-halls-list></div>
+
+      <div class="publish-bar">
+        <p class="status" role="status" aria-live="polite" data-editor-status></p>
+        <button class="button button-primary" type="button" data-save>Сохранить и опубликовать</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
