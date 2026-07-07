@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <title>Банкетное меню Rich Hall | RICH HALL Minsk</title>
+  <meta name="description" content="Банкетное меню RICH HALL Minsk: закуски, салаты, горячие блюда, гарниры и дополнительные позиции для мероприятий.">
+  <link rel="canonical" href="https://n1kseeman.github.io/rich-hall-minsk/menu.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #0d0a07;
+      --bg-soft: #17100a;
+      --milk: #fff8ea;
+      --muted: #cdbf9f;
+      --muted-2: #9f9278;
+      --gold: #d3a452;
+      --line: rgba(245, 239, 228, .12);
+      --radius: 34px;
+      --container: min(100vw - 44px, 1180px);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--milk);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(211, 164, 82, .18), transparent 34rem),
+        radial-gradient(circle at 0% 25%, rgba(211, 164, 82, .08), transparent 30rem),
+        var(--bg);
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .top-scroll-shade {
+      position: fixed;
+      z-index: 45;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: clamp(116px, 14vw, 190px);
+      background: linear-gradient(180deg, rgba(13, 10, 7, .92), rgba(13, 10, 7, .46), transparent);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s var(--ease);
+    }
+
+    body.has-scrolled .top-scroll-shade,
+    body.menu-open .top-scroll-shade {
+      opacity: 1;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 50;
+      top: 16px;
+      right: 18px;
+      left: 18px;
+      max-width: 1180px;
+      margin: 0 auto;
+      border: 1px solid rgba(211, 164, 82, .18);
+      border-radius: 999px;
+      background: rgba(17, 11, 6, .72);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .28);
+      backdrop-filter: blur(22px);
+      transition: background .25s var(--ease), box-shadow .25s var(--ease);
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(17, 11, 6, .94);
+      box-shadow: 0 24px 74px rgba(0, 0, 0, .42);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      padding: 0 16px 0 26px;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: max-content;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      font-family: Copperplate, "Bodoni 72", Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      line-height: 1;
+    }
+
+    .brand span {
+      color: var(--gold);
+      font-size: .54rem;
+      font-weight: 900;
+      letter-spacing: .28em;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: clamp(14px, 2.2vw, 34px);
+      color: #d6c79f;
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 10px 0 13px;
+      transition: color .2s var(--ease);
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 5px;
+      left: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform .2s var(--ease);
+    }
+
+    .nav a:hover,
+    .nav a[aria-current="page"] {
+      color: var(--milk);
+    }
+
+    .nav a:hover::after,
+    .nav a[aria-current="page"]::after {
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 22px;
+      border: 1px solid rgba(211, 164, 82, .28);
+      border-radius: 999px;
+      font-size: .74rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-align: center;
+      text-transform: uppercase;
+      transition: transform .22s var(--ease), border-color .22s var(--ease), background .22s var(--ease);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #1b1207;
+      background: linear-gradient(135deg, #edcb7a, #bd8030);
+      box-shadow: 0 18px 44px rgba(211, 164, 82, .2);
+    }
+
+    .btn-outline {
+      color: var(--milk);
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .icon-btn {
+      width: 48px;
+      height: 48px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(211, 164, 82, .26);
+      border-radius: 999px;
+      color: var(--milk);
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .icon-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+
+    .icon-btn path {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: opacity .2s var(--ease), transform .2s var(--ease);
+    }
+
+    body.menu-open .icon-btn path:nth-child(1) {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    body.menu-open .icon-btn path:nth-child(2) {
+      opacity: 0;
+    }
+
+    body.menu-open .icon-btn path:nth-child(3) {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+
+    main {
+      padding-top: 132px;
+    }
+
+    .section {
+      padding: clamp(54px, 8vw, 110px) 0;
+    }
+
+    .menu-page-hero {
+      position: relative;
+    }
+
+    .menu-page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent, rgba(13, 10, 7, .88)),
+        radial-gradient(circle at 72% 14%, rgba(211, 164, 82, .14), transparent 26rem);
+      pointer-events: none;
+    }
+
+    .menu-page-hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      line-height: .98;
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(3.1rem, 7vw, 6.8rem);
+      overflow-wrap: anywhere;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 1.5vw, 1.24rem);
+      line-height: 1.65;
+    }
+
+    .menu-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(22px, 4vw, 58px);
+      align-items: end;
+      margin-bottom: clamp(28px, 5vw, 54px);
+    }
+
+    .menu-actions {
+      display: grid;
+      gap: 14px;
+      justify-items: end;
+    }
+
+    .menu-count {
+      color: var(--gold);
+      font-size: .74rem;
+      font-weight: 850;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .menu-category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: clamp(28px, 4vw, 42px);
+    }
+
+    .menu-category-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid rgba(211, 164, 82, .22);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .025);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .menu-grid {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 24px);
+    }
+
+    .menu-category {
+      min-width: 0;
+      scroll-margin-top: 112px;
+      overflow: hidden;
+      border: 1px solid rgba(245, 239, 228, .12);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .018)),
+        rgba(16, 16, 15, .72);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+    }
+
+    .menu-category:nth-child(4),
+    .menu-category:nth-child(6),
+    .menu-category:nth-child(12),
+    .menu-category:nth-child(15) {
+      grid-column: 1 / -1;
+    }
+
+    .menu-category-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 26px;
+      border-bottom: 1px solid rgba(245, 239, 228, .1);
+      background: linear-gradient(135deg, rgba(211, 164, 82, .1), rgba(255, 255, 255, .018));
+    }
+
+    .menu-category-head span {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-size: .62rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .menu-category-head h3 {
+      font-size: clamp(1.45rem, 2vw, 2.2rem);
+    }
+
+    .menu-category-head p {
+      flex: 0 0 auto;
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .menu-items {
+      display: grid;
+    }
+
+    .menu-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;
+      gap: 18px;
+      align-items: start;
+      padding: 20px 26px;
+      border-top: 1px solid rgba(245, 239, 228, .08);
+    }
+
+    .menu-item:first-child {
+      border-top: 0;
+    }
+
+    .menu-item-content {
+      min-width: 0;
+    }
+
+    .menu-item h4 {
+      color: var(--milk);
+      font-size: clamp(1.02rem, 1.2vw, 1.18rem);
+      line-height: 1.18;
+      overflow-wrap: anywhere;
+    }
+
+    .menu-item p {
+      margin-top: 8px;
+      color: var(--muted-2);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    .menu-item-metas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .menu-item-meta {
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid rgba(211, 164, 82, .16);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .025);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .menu-item-price {
+      min-width: 92px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      border: 1px solid rgba(211, 164, 82, .28);
+      border-radius: 999px;
+      color: #211509;
+      background: linear-gradient(135deg, #e1bc79, #ba8546);
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    .menu-empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .site-footer {
+      padding: 56px 0 34px;
+      border-top: 1px solid rgba(245, 239, 228, .1);
+      color: var(--muted);
+      background: #090705;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(160px, .6fr));
+      gap: 28px;
+    }
+
+    .footer-title {
+      margin-bottom: 14px;
+      color: var(--milk);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .footer-links,
+    .footer-contacts {
+      display: grid;
+      gap: 10px;
+    }
+
+    .copyright {
+      margin-top: 34px;
+      color: var(--muted-2);
+      font-size: .82rem;
+    }
+
+    @media (max-width: 1080px), (orientation: portrait) {
+      :root {
+        --container: min(100vw - 36px, 980px);
+      }
+
+      body {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+
+      .site-header {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        border-radius: 30px;
+      }
+
+      .header-inner {
+        min-height: 66px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 9px 0 18px;
+      }
+
+      .brand strong {
+        font-size: 1.02rem;
+        letter-spacing: .18em;
+      }
+
+      .brand span {
+        font-size: .48rem;
+      }
+
+      .header-actions > .btn {
+        display: none;
+      }
+
+      .icon-btn {
+        display: inline-flex;
+      }
+
+      .nav {
+        position: fixed;
+        top: 88px;
+        right: 12px;
+        left: 12px;
+        max-height: calc(100svh - 108px);
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        overflow: auto;
+        padding: 18px;
+        border: 1px solid rgba(211, 164, 82, .28);
+        border-radius: 30px;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(211, 164, 82, .18), transparent 18rem),
+          linear-gradient(180deg, rgba(25, 16, 8, .98), rgba(11, 8, 6, .98));
+        box-shadow: 0 30px 86px rgba(0, 0, 0, .56);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-12px) scale(.97);
+        transition: opacity .22s var(--ease), transform .22s var(--ease);
+      }
+
+      .nav::before {
+        content: "RICH HALL MENU";
+        color: var(--gold);
+        font-size: .62rem;
+        font-weight: 900;
+        letter-spacing: .24em;
+      }
+
+      body.menu-open .nav {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+      }
+
+      .nav a {
+        width: min(100%, 320px);
+        min-height: 56px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        padding: 0 15px 0 18px;
+        border: 1px solid rgba(211, 164, 82, .18);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, .035);
+        font-size: .86rem;
+      }
+
+      .nav a::after {
+        content: "↗";
+        position: static;
+        width: auto;
+        height: auto;
+        color: var(--gold);
+        background: none;
+        transform: none;
+      }
+
+      main {
+        padding-top: 112px;
+      }
+
+      .menu-top,
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-actions {
+        justify-items: start;
+      }
+
+      .menu-category:nth-child(4),
+      .menu-category:nth-child(6),
+      .menu-category:nth-child(12),
+      .menu-category:nth-child(15) {
+        grid-column: auto;
+      }
+
+      .menu-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .menu-item-price {
+        justify-self: start;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      h1 {
+        font-size: clamp(2.6rem, 16vw, 4.4rem);
+      }
+
+      .menu-page-hero {
+        padding-top: 44px;
+      }
+
+      .menu-category {
+        border-radius: 28px;
+      }
+
+      .menu-category-head {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+      }
+
+      .menu-item {
+        padding: 17px 20px;
+      }
+
+      .menu-category-nav a {
+        min-height: 38px;
+        padding: 0 12px;
+        font-size: .66rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a class="brand" href="index.html#home" aria-label="RICH HALL, главная">
+        <strong>RICH HALL</strong>
+        <span>Banquet Palace</span>
+      </a>
+
+      <nav class="nav" id="menu-navigation" data-nav aria-label="Основная навигация">
+        <a href="index.html#home">Главная</a>
+        <a href="index.html#halls">Залы</a>
+        <a href="menu.html" aria-current="page">Меню</a>
+        <a href="index.html#events">Мероприятия</a>
+        <a href="index.html#gallery">Галерея</a>
+        <a href="index.html#contacts">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary" href="index.html#booking">Бронь</a>
+        <button class="icon-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu-navigation" aria-label="Открыть меню">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="top-scroll-shade" aria-hidden="true"></div>
+
+  <main>
+    <section class="section menu-page-hero" data-banquet-menu>
+      <div class="container">
+        <div class="menu-top">
+          <div>
+            <p class="eyebrow">Меню</p>
+            <h1>Банкетное меню Rich Hall</h1>
+            <p class="lead">Полное меню для банкетов и мероприятий: фуршетные закуски, салаты, горячие блюда, гарниры и дополнительные позиции.</p>
+          </div>
+
+          <div class="menu-actions">
+            <a class="btn btn-primary" href="index.html#contacts">Связаться с нами</a>
+            <p class="menu-count" data-menu-count>Загружаем меню</p>
+          </div>
+        </div>
+
+        <nav class="menu-category-nav" data-menu-categories aria-label="Категории банкетного меню"></nav>
+        <div class="menu-grid" data-menu-grid>
+          <p class="menu-empty">Загружаем банкетное меню...</p>
+        </div>
+        <noscript>
+          <p class="menu-empty">Для просмотра полного меню включите JavaScript или свяжитесь с нами — отправим актуальный вариант.</p>
+        </noscript>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html#home" aria-label="RICH HALL, главная">
+            <strong>RICH HALL</strong>
+            <span>Banquet Palace</span>
+          </a>
+          <p class="lead">Премиальное банкетное пространство в центре Минска для свадеб, корпоративов, конференций, private dining и камерных праздников.</p>
+        </div>
+        <div>
+          <div class="footer-title">Навигация</div>
+          <div class="footer-links">
+            <a href="index.html#halls">Залы</a>
+            <a href="menu.html">Меню</a>
+            <a href="index.html#events">Мероприятия</a>
+            <a href="index.html#booking">Забронировать дату</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Контакты</div>
+          <div class="footer-contacts">
+            <a href="tel:+375296521515">+375 29 652 15 15</a>
+            <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">@richhall_minsk</a>
+            <span>Минск, проспект Независимости, 56, 2 этаж</span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© 2026 RICH HALL. Банкетный зал и event-пространство в Минске.</div>
+    </div>
+  </footer>
+
+  <script src="assets/menu-site.js"></script>
+  <script>
+    const body = document.body;
+    const header = document.querySelector("[data-header]");
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const nav = document.querySelector("[data-nav]");
+
+    function setHeaderState() {
+      const isScrolled = window.scrollY > 12;
+      header.classList.toggle("is-scrolled", isScrolled);
+      body.classList.toggle("has-scrolled", isScrolled);
+    }
+
+    function closeMenu() {
+      body.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Открыть меню");
+    }
+
+    setHeaderState();
+    window.addEventListener("scroll", setHeaderState, { passive: true });
+    window.addEventListener("resize", setHeaderState, { passive: true });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = body.classList.toggle("menu-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Закрыть меню" : "Открыть меню");
+    });
+
+    nav.addEventListener("click", closeMenu);
+  </script>
+</body>
+</html>
