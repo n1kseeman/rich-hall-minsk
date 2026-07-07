@@ -2011,7 +2011,203 @@
       opacity: 1;
     }
 
-    @media (max-width: 1080px), (orientation: portrait) {
+    /* Universal mobile visual polish */
+    body {
+      --radius: 34px;
+    }
+
+    section[id] {
+      scroll-margin-top: 118px;
+    }
+
+    .site-header {
+      top: 16px;
+      right: 18px;
+      left: 18px;
+      width: auto;
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: visible;
+      border: 1px solid rgba(211, 164, 82, .2);
+      border-radius: 999px;
+      background: rgba(13, 10, 7, .78);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .32);
+      backdrop-filter: blur(24px);
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(13, 10, 7, .92);
+      box-shadow: 0 20px 68px rgba(0, 0, 0, .44);
+    }
+
+    .header-inner {
+      width: auto;
+      min-height: 76px;
+      padding: 0 14px 0 24px;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .header-inner::before,
+    .header-inner::after {
+      display: none;
+    }
+
+    .brand {
+      align-items: flex-start;
+      flex: 0 0 auto;
+      text-align: left;
+    }
+
+    .brand strong {
+      font-size: clamp(1.02rem, 1.25vw, 1.24rem);
+      letter-spacing: .2em;
+    }
+
+    .brand span {
+      margin-top: 3px;
+      font-size: .5rem;
+      letter-spacing: .26em;
+    }
+
+    .nav {
+      flex: 1 1 auto;
+      gap: clamp(12px, 1.55vw, 24px);
+      font-size: .68rem;
+      letter-spacing: .16em;
+    }
+
+    .nav a {
+      padding: 12px 0 15px;
+    }
+
+    .nav a::after {
+      bottom: 8px;
+    }
+
+    .header-actions {
+      position: static;
+      flex: 0 0 auto;
+    }
+
+    .site-header .header-cta,
+    .header-actions > .btn.header-cta {
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(211, 164, 82, .32);
+      border-radius: 999px;
+      color: #1b1207;
+      background: linear-gradient(135deg, #edcb7a, #bd8030);
+      box-shadow: 0 14px 36px rgba(211, 164, 82, .18);
+      font-size: .62rem;
+      letter-spacing: .15em;
+      line-height: 1;
+    }
+
+    .site-header .header-cta:hover,
+    .header-actions > .btn.header-cta:hover {
+      transform: translateY(-1px);
+      border-color: rgba(211, 164, 82, .5);
+      color: #1b1207;
+      background: linear-gradient(135deg, #f0cf82, #c48934);
+      box-shadow: 0 18px 48px rgba(211, 164, 82, .25);
+    }
+
+    .btn,
+    .btn-primary,
+    .btn-outline,
+    .icon-btn {
+      border-radius: 999px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 24px;
+      font-size: .72rem;
+      letter-spacing: .14em;
+    }
+
+    .hero {
+      padding-top: 132px;
+    }
+
+    .hero-media::before {
+      border-radius: 320px 320px 34px 34px;
+    }
+
+    .hero-photo {
+      border-radius: 300px 300px 32px 32px;
+    }
+
+    .hero-note {
+      border-radius: 28px;
+    }
+
+    .hero-facts,
+    .event-card,
+    .review-card,
+    .advantage,
+    .contact-panel,
+    .form-panel,
+    .private-card,
+    .menu-teaser-card,
+    .halls-empty,
+    .map-card {
+      border-radius: 28px;
+    }
+
+    .hero-facts {
+      overflow: hidden;
+      border-color: rgba(211, 164, 82, .24);
+      background: rgba(255, 255, 255, .035);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-fact {
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .event-card,
+    .review-card,
+    .advantage,
+    .contact-panel,
+    .form-panel,
+    .private-card,
+    .menu-teaser-card {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .052), rgba(255, 255, 255, .018)),
+        rgba(16, 11, 7, .72);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, .3);
+    }
+
+    .hall-card {
+      border-radius: 30px;
+    }
+
+    .hall-image {
+      border-radius: 240px 240px 24px 24px;
+    }
+
+    .capacity {
+      border-radius: 999px;
+    }
+
+    .map-wrap {
+      border-radius: 30px;
+    }
+
+    input,
+    select,
+    textarea {
+      border-radius: 18px;
+    }
+
+    .lightbox img {
+      border-radius: 30px;
+    }
+
+    @media (max-width: 1180px), (orientation: portrait) {
       .header-inner {
         min-height: 74px;
       }
