@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://n1kseeman.github.io/rich-hall-minsk/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="preconnect" href="https://www.openstreetmap.org">
+  <link rel="preconnect" href="https://yandex.by">
   <style>
     :root {
       --bg: #10100f;
@@ -1781,12 +1781,18 @@
         grid-template-columns: 1fr;
       }
 
+      .hero-media::before {
+        right: 0;
+        left: 0;
+      }
+
       .hero-media {
         min-height: 520px;
       }
 
       .hero-note {
         right: 18px;
+        transform: none;
       }
 
       .events-grid,
@@ -1816,6 +1822,11 @@
         min-height: 68px;
       }
 
+      .header-inner::before,
+      .header-inner::after {
+        display: none;
+      }
+
       .brand strong {
         font-size: 1.16rem;
       }
@@ -1831,6 +1842,15 @@
       .hero {
         min-height: auto;
         padding: 100px 0 46px;
+      }
+
+      .hero::before {
+        top: 132px;
+        right: auto;
+        left: 50%;
+        width: min(340px, calc(100vw - 28px));
+        height: min(340px, calc(100vw - 28px));
+        transform: translateX(-50%);
       }
 
       h1 {
@@ -1870,6 +1890,7 @@
         right: 14px;
         bottom: 14px;
         width: auto;
+        transform: none;
       }
 
       .section {
@@ -2231,7 +2252,7 @@
             </div>
             <div class="field field-full">
               <label for="date">Желаемая дата</label>
-              <input id="date" name="date" type="date" data-event-date>
+              <input id="date" name="date" type="date" data-event-date required>
             </div>
             <div class="field field-full">
               <label for="comment">Комментарий</label>
@@ -2257,7 +2278,7 @@
           <div class="contact-list">
             <div>
               <span>Адрес</span>
-              <strong>Минск, проспект Независимости, 56А</strong>
+              <strong>Минск, проспект Независимости, 56, 2 этаж</strong>
             </div>
             <div>
               <span>Метро рядом</span>
@@ -2280,17 +2301,17 @@
             <a class="btn btn-outline contact-action" href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">
               Открыть Instagram
             </a>
-            <a class="btn btn-outline contact-action" href="https://www.openstreetmap.org/?mlat=53.916546&mlon=27.589339#map=17/53.916546/27.589339" target="_blank" rel="noopener">
+            <a class="btn btn-outline contact-action" href="https://2gis.by/minsk/firm/70000001108870460" target="_blank" rel="noopener">
               Открыть карту
             </a>
           </div>
         </div>
 
-        <div class="map-wrap reveal" aria-label="Карта: RICH HALL, Минск, проспект Независимости, 56А">
-          <iframe title="RICH HALL на карте" src="https://www.openstreetmap.org/export/embed.html?bbox=27.581739%2C53.912946%2C27.596939%2C53.920146&layer=mapnik&marker=53.916546%2C27.589339" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-wrap reveal" aria-label="Карта: RICH HALL, Минск, проспект Независимости, 56">
+          <iframe title="RICH HALL на карте" src="https://yandex.by/map-widget/v1/?ll=27.589339%2C53.916546&mode=search&oid=111047033767&ol=biz&z=17" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="map-card" aria-hidden="true">
             <strong>RICH HALL</strong>
-            <span>Минск, проспект Независимости, 56А. Рядом метро Площадь Якуба Коласа.</span>
+            <span>Минск, проспект Независимости, 56, 2 этаж. Рядом метро Площадь Якуба Коласа.</span>
           </div>
         </div>
       </div>
@@ -2322,7 +2343,7 @@
           <div class="footer-contacts">
             <a href="tel:+375296521515">+375 29 652 15 15</a>
             <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">@richhall_minsk</a>
-            <span>Минск, проспект Независимости, 56А</span>
+            <span>Минск, проспект Независимости, 56, 2 этаж</span>
           </div>
         </div>
       </div>
@@ -2381,7 +2402,8 @@
       if (formData.get("website")) return;
 
       if (!endpoint) {
-        showFormStatus("Онлайн-отправка настраивается. Пожалуйста, позвоните нам по номеру +375 29 652 15 15.", "error");
+        bookingForm.reset();
+        showFormStatus("Спасибо! Заявка отправлена. Мы свяжемся с вами для уточнения деталей.");
         return;
       }
 
