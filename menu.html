@@ -707,6 +707,106 @@
         font-size: .66rem;
       }
     }
+
+    @media (min-width: 721px) {
+      body {
+        padding-bottom: 0;
+      }
+
+      .site-header {
+        top: 16px;
+        right: 18px;
+        left: 18px;
+        width: auto;
+        max-width: 1180px;
+        margin: 0 auto;
+        border-radius: 999px;
+      }
+
+      .header-inner {
+        min-height: 76px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 22px;
+        padding: 9px 16px 9px 26px;
+      }
+
+      .nav {
+        position: static;
+        inset: auto;
+        width: auto;
+        min-width: 0;
+        max-height: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        column-gap: clamp(12px, 2vw, 34px);
+        row-gap: 0;
+        overflow: visible;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        color: #d6c79f;
+        background: transparent;
+        box-shadow: none;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .nav::before {
+        content: none;
+        display: none;
+      }
+
+      body.menu-open .nav {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .nav a {
+        min-height: auto;
+        width: auto;
+        display: block;
+        padding: 10px 0 13px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        font-size: clamp(.62rem, .9vw, .72rem);
+        white-space: nowrap;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 1px;
+        color: inherit;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        opacity: 1;
+        transform: scaleX(0);
+      }
+
+      .nav a:hover::after,
+      .nav a[aria-current="page"]::after {
+        transform: scaleX(1);
+      }
+
+      .header-actions > .btn {
+        display: inline-flex;
+      }
+
+      .icon-btn {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
