@@ -589,6 +589,214 @@
       color: var(--muted);
     }
 
+    .banquet-menu {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(198, 154, 85, 0.11), transparent 32rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(198, 154, 85, 0.035));
+    }
+
+    .menu-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(22px, 4vw, 58px);
+      align-items: end;
+      margin-bottom: clamp(28px, 5vw, 54px);
+    }
+
+    .menu-top .section-head {
+      margin-bottom: 0;
+    }
+
+    .menu-actions {
+      display: grid;
+      gap: 14px;
+      justify-items: end;
+    }
+
+    .menu-count {
+      color: var(--gold);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .menu-category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: clamp(28px, 4vw, 42px);
+    }
+
+    .menu-category-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(198, 154, 85, 0.22);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease);
+    }
+
+    .menu-category-nav a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(198, 154, 85, 0.55);
+      color: var(--milk);
+      background: rgba(198, 154, 85, 0.08);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 24px);
+      min-width: 0;
+    }
+
+    .menu-category {
+      overflow: hidden;
+      min-width: 0;
+      border: 1px solid rgba(245, 239, 228, 0.12);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+        rgba(16, 16, 15, 0.72);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+    }
+
+    .menu-category:nth-child(4),
+    .menu-category:nth-child(6),
+    .menu-category:nth-child(12),
+    .menu-category:nth-child(15) {
+      grid-column: 1 / -1;
+    }
+
+    .menu-category-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 26px;
+      border-bottom: 1px solid rgba(245, 239, 228, 0.1);
+      background: linear-gradient(135deg, rgba(198, 154, 85, 0.1), rgba(255, 255, 255, 0.018));
+    }
+
+    .menu-category-head span {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-size: .62rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .menu-category-head h3 {
+      font-size: clamp(1.45rem, 2vw, 2.2rem);
+    }
+
+    .menu-category-head p {
+      flex: 0 0 auto;
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .menu-items {
+      display: grid;
+    }
+
+    .menu-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;
+      gap: 18px;
+      align-items: start;
+      padding: 20px 26px;
+      border-top: 1px solid rgba(245, 239, 228, 0.08);
+    }
+
+    .menu-item-content {
+      min-width: 0;
+    }
+
+    .menu-item:first-child {
+      border-top: 0;
+    }
+
+    .menu-item h4 {
+      margin: 0;
+      color: var(--milk);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.02rem, 1.2vw, 1.18rem);
+      font-weight: 500;
+      line-height: 1.18;
+      overflow-wrap: anywhere;
+    }
+
+    .menu-item p {
+      margin-top: 8px;
+      color: var(--muted-2);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    .menu-item-metas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .menu-item-meta {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border: 1px solid rgba(198, 154, 85, 0.16);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .menu-item-price {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 92px;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(198, 154, 85, 0.28);
+      border-radius: 999px;
+      color: #211509;
+      background: linear-gradient(135deg, #e1bc79, #ba8546);
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    .menu-empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
     .advantages-layout {
       display: grid;
       grid-template-columns: .82fr 1.18fr;
@@ -1207,7 +1415,7 @@
     }
 
     .nav {
-      gap: clamp(22px, 3.2vw, 52px);
+      gap: clamp(14px, 2.4vw, 36px);
       color: #d6c79f;
       font-size: .74rem;
       font-weight: 850;
@@ -2646,6 +2854,85 @@
       }
     }
 
+    @media (max-width: 900px), (orientation: portrait) {
+      .menu-top {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .menu-actions {
+        justify-items: start;
+      }
+
+      .menu-category-nav {
+        gap: 8px;
+      }
+
+      .menu-category-nav a {
+        min-height: 38px;
+        padding: 0 12px;
+        font-size: .66rem;
+        letter-spacing: .08em;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-category:nth-child(4),
+      .menu-category:nth-child(6),
+      .menu-category:nth-child(12),
+      .menu-category:nth-child(15) {
+        grid-column: auto;
+      }
+
+      .menu-category-head {
+        padding: 22px;
+      }
+
+      .menu-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 18px 22px;
+      }
+
+      .menu-item-price {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .menu-category {
+        border-radius: 28px;
+      }
+
+      .menu-category-head {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+      }
+
+      .menu-category-head p {
+        align-self: flex-start;
+      }
+
+      .menu-item {
+        padding: 17px 20px;
+      }
+
+      .menu-item h4 {
+        font-size: 1.03rem;
+      }
+
+      .menu-item p {
+        font-size: .88rem;
+      }
+
+      .menu-item-meta {
+        font-size: .66rem;
+      }
+    }
+
     @media (hover: none) {
       .gallery-item::after {
         opacity: 1;
@@ -2682,6 +2969,7 @@
       <nav class="nav" id="mobile-navigation" data-nav aria-label="Основная навигация">
         <a href="#home">Главная</a>
         <a href="#halls">Залы</a>
+        <a href="#menu">Меню</a>
         <a href="#events">Мероприятия</a>
         <a href="#advantages">Преимущества</a>
         <a href="#gallery">Галерея</a>
@@ -2897,6 +3185,31 @@
       </div>
     </section>
 
+    <section class="section banquet-menu" id="menu" data-banquet-menu>
+      <div class="container">
+        <div class="menu-top">
+          <div class="section-head reveal">
+            <p class="eyebrow">Меню</p>
+            <h2>Банкетное меню Rich Hall</h2>
+            <p class="lead">Закуски, салаты, горячие блюда, гарниры и дополнительные позиции для банкетного события. Цены и выходы перенесены из актуального меню.</p>
+          </div>
+
+          <div class="menu-actions reveal">
+            <a class="btn btn-primary" href="#contacts">Связаться с нами</a>
+            <p class="menu-count" data-menu-count>Загружаем меню</p>
+          </div>
+        </div>
+
+        <nav class="menu-category-nav reveal" data-menu-categories aria-label="Категории банкетного меню"></nav>
+        <div class="menu-grid" data-menu-grid>
+          <p class="menu-empty">Загружаем банкетное меню...</p>
+        </div>
+        <noscript>
+          <p class="menu-empty">Для просмотра полного меню включите JavaScript или свяжитесь с нами — отправим актуальный вариант.</p>
+        </noscript>
+      </div>
+    </section>
+
     <section class="section" id="gallery">
       <div class="container">
         <div class="section-head reveal">
@@ -3083,6 +3396,7 @@
           <div class="footer-title">Навигация</div>
           <div class="footer-links">
             <a href="#halls">Залы</a>
+            <a href="#menu">Меню</a>
             <a href="#events">Мероприятия</a>
             <a href="#advantages">Преимущества</a>
             <a href="#gallery">Галерея</a>
@@ -3111,6 +3425,7 @@
   </div>
 
   <script src="assets/halls-site.js"></script>
+  <script src="assets/menu-site.js"></script>
   <script>
     const body = document.body;
     const header = document.querySelector("[data-header]");
