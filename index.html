@@ -1742,6 +1742,12 @@
       background: rgba(23, 16, 10, .9);
     }
 
+    .menu-button-text,
+    .mobile-menu-actions,
+    .mobile-sticky-cta {
+      display: none;
+    }
+
     @media (max-width: 1080px) {
       .header-inner {
         min-height: 74px;
@@ -1946,6 +1952,487 @@
       }
     }
 
+    @media (max-width: 720px) {
+      html {
+        scroll-padding-top: 92px;
+      }
+
+      body {
+        padding-bottom: calc(90px + env(safe-area-inset-bottom));
+      }
+
+      .site-header {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        overflow: visible;
+        border: 1px solid rgba(211, 164, 82, .26);
+        border-radius: 28px;
+        background: rgba(13, 10, 7, .78);
+        box-shadow: 0 18px 54px rgba(0, 0, 0, .34);
+        backdrop-filter: blur(24px);
+      }
+
+      .site-header.is-scrolled {
+        background: rgba(13, 10, 7, .9);
+        box-shadow: 0 18px 64px rgba(0, 0, 0, .44);
+      }
+
+      .header-inner {
+        width: auto;
+        min-height: 64px;
+        padding: 0 8px 0 16px;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .brand {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .brand strong {
+        font-size: .98rem;
+        letter-spacing: .18em;
+      }
+
+      .brand span {
+        margin-top: 3px;
+        font-size: .48rem;
+        letter-spacing: .24em;
+      }
+
+      .header-actions {
+        position: static;
+        gap: 8px;
+        margin-left: auto;
+      }
+
+      .header-actions > .btn.header-cta {
+        display: inline-flex;
+        min-height: 40px;
+        padding: 0 12px;
+        border: 1px solid rgba(211, 164, 82, .34);
+        border-radius: 999px;
+        color: var(--gold);
+        background: rgba(255, 255, 255, .035);
+        box-shadow: none;
+        font-size: .58rem;
+        letter-spacing: .18em;
+      }
+
+      .header-actions > .btn.header-cta:hover {
+        color: var(--milk);
+        background: rgba(211, 164, 82, .08);
+      }
+
+      .icon-btn {
+        width: auto;
+        min-width: 42px;
+        height: 42px;
+        padding: 0 12px;
+        gap: 8px;
+        border-color: rgba(211, 164, 82, .28);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .055);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+      }
+
+      .menu-button-text {
+        display: inline-block;
+        color: var(--milk);
+        font-size: .58rem;
+        font-weight: 900;
+        letter-spacing: .16em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .icon-btn svg path {
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: opacity .22s var(--ease), transform .22s var(--ease);
+      }
+
+      body.menu-open .icon-btn svg path:nth-child(1) {
+        transform: translateY(5px) rotate(45deg);
+      }
+
+      body.menu-open .icon-btn svg path:nth-child(2) {
+        opacity: 0;
+      }
+
+      body.menu-open .icon-btn svg path:nth-child(3) {
+        transform: translateY(-5px) rotate(-45deg);
+      }
+
+      .nav {
+        top: 84px;
+        right: 10px;
+        left: 10px;
+        max-height: calc(100svh - 104px);
+        overflow: auto;
+        overscroll-behavior: contain;
+        padding: 18px;
+        gap: 10px;
+        border: 1px solid rgba(211, 164, 82, .28);
+        border-radius: 30px;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(211, 164, 82, .18), transparent 18rem),
+          linear-gradient(180deg, rgba(25, 16, 8, .98), rgba(11, 8, 6, .98));
+        box-shadow: 0 30px 86px rgba(0, 0, 0, .56);
+        backdrop-filter: blur(26px);
+        counter-reset: mobile-menu;
+        transform: translateY(-12px) scale(.97);
+        transform-origin: top center;
+      }
+
+      .nav::before {
+        content: "RICH HALL MENU";
+        display: block;
+        margin: 4px 0 6px;
+        color: var(--gold);
+        font-size: .62rem;
+        font-weight: 900;
+        letter-spacing: .24em;
+        text-align: center;
+      }
+
+      body.menu-open .nav {
+        transform: translateY(0) scale(1);
+      }
+
+      .nav a {
+        min-height: 58px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        border: 1px solid rgba(211, 164, 82, .18);
+        border-radius: 20px;
+        color: var(--milk);
+        background:
+          linear-gradient(135deg, rgba(211, 164, 82, .11), rgba(255, 255, 255, .025)),
+          rgba(255, 255, 255, .025);
+        font-size: .86rem;
+        font-weight: 850;
+        letter-spacing: .08em;
+        text-align: left;
+      }
+
+      .nav > a {
+        counter-increment: mobile-menu;
+      }
+
+      .nav > a::before {
+        content: "0" counter(mobile-menu);
+        color: var(--gold);
+        font-size: .62rem;
+        letter-spacing: .18em;
+      }
+
+      .nav a::after {
+        content: "↗";
+        position: static;
+        display: inline-block;
+        width: auto;
+        height: auto;
+        color: var(--gold);
+        background: none;
+        opacity: .72;
+        transform: none;
+      }
+
+      .mobile-menu-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .mobile-menu-actions a {
+        min-height: 50px;
+        display: inline-flex;
+        justify-content: center;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: .68rem;
+        letter-spacing: .14em;
+        text-align: center;
+      }
+
+      .mobile-menu-actions a::before,
+      .mobile-menu-actions a::after {
+        content: none;
+      }
+
+      .mobile-menu-book {
+        grid-column: 1 / -1;
+        color: #1b1207 !important;
+        background: linear-gradient(135deg, #edcb7a, #bd8030) !important;
+        box-shadow: 0 18px 44px rgba(211, 164, 82, .22);
+      }
+
+      .hero {
+        padding-top: 92px;
+      }
+
+      .hero-grid {
+        gap: 26px;
+      }
+
+      .hero-grid,
+      .booking-layout,
+      .contacts-layout,
+      .advantages-layout,
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-grid > *,
+      .booking-layout > *,
+      .contacts-layout > *,
+      .advantages-layout > *,
+      .form-grid > * {
+        min-width: 0;
+      }
+
+      .hero-media {
+        order: -1;
+        min-height: min(58svh, 382px);
+        margin: 0 2px;
+      }
+
+      .hero-media::before {
+        inset: -12px 8px 52px;
+        border-radius: 220px 220px 28px 28px;
+      }
+
+      .hero-photo {
+        border-radius: 220px 220px 26px 26px;
+      }
+
+      .hero-note {
+        left: 18px;
+        right: 18px;
+        bottom: 14px;
+        padding: 16px 18px;
+        border-radius: 22px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, .36);
+      }
+
+      .hero-note span {
+        font-size: .58rem;
+        letter-spacing: .22em;
+      }
+
+      .hero-note p {
+        font-size: 1.1rem;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-copy .eyebrow {
+        width: 100%;
+        justify-content: center;
+        font-size: .62rem;
+        letter-spacing: .22em;
+      }
+
+      .hero-copy .eyebrow::after {
+        display: block;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 34px;
+      }
+
+      h1 {
+        max-width: 100%;
+        font-size: clamp(2.35rem, 11.2vw, 3.55rem);
+        line-height: .92;
+      }
+
+      h2 {
+        font-size: clamp(1.95rem, 9.4vw, 2.9rem);
+        letter-spacing: .01em;
+      }
+
+      .hero-copy .lead {
+        max-width: 34rem;
+        margin: 16px auto 0;
+        font-size: .96rem;
+        line-height: 1.56;
+      }
+
+      .hero-cta {
+        display: none;
+      }
+
+      .hero-cta .btn,
+      .contact-actions .btn,
+      .hall-body .btn,
+      .private-card .btn,
+      .form-panel .btn {
+        min-height: 54px;
+        border-radius: 999px;
+        font-size: .68rem;
+        letter-spacing: .13em;
+      }
+
+      .hero-facts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 24px;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+
+      .hero-fact {
+        min-height: auto;
+        padding: 14px 8px;
+        text-align: center;
+      }
+
+      .hero-fact strong {
+        font-size: 1.24rem;
+      }
+
+      .hero-fact span {
+        font-size: .68rem;
+        line-height: 1.25;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .section-head {
+        margin-bottom: 26px;
+      }
+
+      .event-card,
+      .review-card,
+      .advantage,
+      .contact-panel,
+      .form-panel,
+      .private-card,
+      .halls-empty {
+        border-radius: 24px;
+      }
+
+      .event-card {
+        padding: 24px 22px;
+      }
+
+      .hall-card {
+        border-radius: 28px;
+      }
+
+      .hall-image {
+        margin: 14px 14px 0;
+        border-radius: 190px 190px 18px 18px;
+      }
+
+      .capacity {
+        max-width: calc(100% - 28px);
+        border-radius: 999px;
+        font-size: .58rem;
+        white-space: normal;
+      }
+
+      .hall-body,
+      .form-panel,
+      .contact-panel {
+        padding: 24px 22px;
+      }
+
+      input,
+      select,
+      textarea {
+        min-height: 52px;
+        border-radius: 16px;
+      }
+
+      textarea {
+        min-height: 132px;
+      }
+
+      .map-wrap {
+        overflow: hidden;
+        border-radius: 28px;
+      }
+
+      .mobile-sticky-cta {
+        position: fixed;
+        z-index: 60;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        left: 12px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        padding: 8px;
+        border: 1px solid rgba(211, 164, 82, .28);
+        border-radius: 999px;
+        background: rgba(13, 10, 7, .82);
+        box-shadow: 0 22px 70px rgba(0, 0, 0, .48);
+        backdrop-filter: blur(24px);
+        transition: opacity .22s var(--ease), transform .22s var(--ease);
+      }
+
+      .mobile-sticky-cta a {
+        min-height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        font-size: .72rem;
+        font-weight: 900;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+      }
+
+      .mobile-sticky-book {
+        color: #1b1207;
+        background: linear-gradient(135deg, #edcb7a, #bd8030);
+        box-shadow: 0 14px 36px rgba(211, 164, 82, .2);
+      }
+
+      .mobile-sticky-call {
+        width: 50px;
+        border: 1px solid rgba(211, 164, 82, .28);
+        color: var(--milk);
+        background: rgba(255, 255, 255, .06);
+      }
+
+      .mobile-sticky-call svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      body.menu-open .mobile-sticky-cta {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(130%);
+      }
+    }
+
     @media (hover: none) {
       .gallery-item::after {
         opacity: 1;
@@ -1987,11 +2474,17 @@
         <a href="#gallery">Галерея</a>
         <a href="#reviews">Отзывы</a>
         <a href="#contacts">Контакты</a>
+        <div class="mobile-menu-actions" aria-label="Быстрые действия">
+          <a class="mobile-menu-book" href="#booking">Забронировать дату</a>
+          <a href="tel:+375296521515">Позвонить</a>
+          <a href="https://www.instagram.com/richhall_minsk/" target="_blank" rel="noopener">Instagram</a>
+        </div>
       </nav>
 
       <div class="header-actions">
-        <a class="btn btn-primary header-cta" href="#booking" aria-label="Забронировать дату">Бронь даты</a>
+        <a class="btn btn-primary header-cta" href="#booking" aria-label="Забронировать дату">Бронь</a>
         <button class="icon-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Открыть меню">
+          <span class="menu-button-text">Меню</span>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 7h16"></path>
             <path d="M4 12h16"></path>
@@ -2001,6 +2494,15 @@
       </div>
     </div>
   </header>
+
+  <div class="mobile-sticky-cta" aria-label="Быстрые действия">
+    <a class="mobile-sticky-book" href="#booking">Забронировать</a>
+    <a class="mobile-sticky-call" href="tel:+375296521515" aria-label="Позвонить">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8 9.72a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"></path>
+      </svg>
+    </a>
+  </div>
 
   <main id="main">
     <section class="hero section" id="home">
