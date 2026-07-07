@@ -673,6 +673,7 @@
       background: var(--graphite);
       padding: 0;
       isolation: isolate;
+      box-shadow: none;
     }
 
     .gallery-item:nth-child(2),
@@ -694,11 +695,12 @@
       right: 18px;
       bottom: 18px;
       z-index: 1;
-      padding-top: 70px;
+      padding-top: 0;
       color: var(--milk);
       font-weight: 700;
       text-align: left;
-      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62));
+      background: none;
+      text-shadow: none;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity .25s var(--ease), transform .25s var(--ease);
@@ -1615,14 +1617,14 @@
     .gallery-item {
       border: 1px solid rgba(211, 164, 82, .24);
       background: #0d0a07;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .26);
+      box-shadow: none;
     }
 
     .gallery-item::after {
       color: var(--milk);
       letter-spacing: .08em;
       text-transform: uppercase;
-      background: linear-gradient(180deg, transparent, rgba(13, 10, 7, .82));
+      background: none;
     }
 
     .quote {
