@@ -1228,6 +1228,27 @@
       top: 26px;
     }
 
+    .site-header .header-cta {
+      min-height: auto;
+      padding: 8px 0 9px;
+      border: 0;
+      border-bottom: 1px solid rgba(211, 164, 82, .5);
+      color: var(--gold);
+      background: transparent;
+      box-shadow: none;
+      font-size: .66rem;
+      letter-spacing: .3em;
+      line-height: 1;
+    }
+
+    .site-header .header-cta:hover {
+      transform: none;
+      border-color: rgba(248, 234, 204, .72);
+      color: var(--milk);
+      background: transparent;
+      box-shadow: none;
+    }
+
     .btn {
       min-height: 56px;
       padding: 16px 26px;
@@ -1969,7 +1990,7 @@
       </nav>
 
       <div class="header-actions">
-        <a class="btn btn-primary" href="#booking">Забронировать дату</a>
+        <a class="btn btn-primary header-cta" href="#booking" aria-label="Забронировать дату">Бронь даты</a>
         <button class="icon-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Открыть меню">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 7h16"></path>
