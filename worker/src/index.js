@@ -33,6 +33,10 @@ export default {
         return await handlePublish(request, env);
       }
 
+      if (url.pathname === "/api/booking" && request.method === "POST") {
+        return await handleBooking(request, env);
+      }
+
       return jsonResponse(request, env, { error: "Not found." }, 404);
     } catch (error) {
       console.error(error);
@@ -44,7 +48,7 @@ export default {
       return jsonResponse(
         request,
         env,
-        { error: "Не удалось опубликовать изменения. Попробуйте ещё раз." },
+        { error: "Не удалось выполнить запрос. Попробуйте ещё раз." },
         500
       );
     }
@@ -101,6 +105,140 @@ async function readJson(request) {
     return await request.json();
   } catch {
     throw new HttpError(400, "Некорректный запрос.");
+  }
+}
+
+async function readFormOrJson(request, maxLength = 64 * 1024) {
+  const contentLength = Number(request.headers.get("Content-Length") || 0);
+  if (contentLength > maxLength) {
+    throw new HttpError(413, "Слишком большой запрос.");
+  }
+
+  const contentType = request.headers.get("Content-Type") || "";
+
+  if (contentType.includes("application/json")) {
+    return await readJson(request);
+  }
+
+  if (
+    contentType.includes("application/x-www-form-urlencoded")
+    || contentType.includes("multipart/form-data")
+  ) {
+    const formData = await request.formData();
+    return Object.fromEntries(
+      [...formData.entries()].map(([key, value]) => [
+        key,
+        typeof value === "string" ? value : ""
+      ])
+    );
+  }
+
+  throw new HttpError(415, "Некорректный формат заявки.");
+}
+
+function assertAllowedOrigin(request, env) {
+  const origin = request.headers.get("Origin");
+  if (origin && !getAllowedOrigins(env).has(origin)) {
+    throw new HttpError(403, "Origin is not allowed.");
+  }
+}
+
+async function handleBooking(request, env) {
+  assertAllowedOrigin(request, env);
+
+  const payload = await readFormOrJson(request);
+  if (cleanText(payload.website, 120)) {
+    return jsonResponse(request, env, { ok: true });
+  }
+
+  const booking = validateBookingPayload(payload);
+  await sendBookingToTelegram(env, formatBookingMessage(booking, request));
+
+  return jsonResponse(request, env, { ok: true });
+}
+
+function validateBookingPayload(payload) {
+  const name = cleanText(payload.name, 80);
+  const phone = normalizePhone(cleanText(payload.phone, 24));
+  const eventType = cleanText(payload.eventType, 80);
+  const guests = Number.parseInt(cleanText(payload.guests, 6), 10);
+  const date = cleanText(payload.date, 20);
+  const comment = cleanText(payload.comment, 1000);
+
+  if (!name) {
+    throw new HttpError(400, "Укажите имя.");
+  }
+
+  if (!/^\+?[0-9]{7,15}$/.test(phone)) {
+    throw new HttpError(400, "Укажите корректный телефон.");
+  }
+
+  if (!eventType) {
+    throw new HttpError(400, "Укажите тип мероприятия.");
+  }
+
+  if (!Number.isInteger(guests) || guests < 1 || guests > 300) {
+    throw new HttpError(400, "Укажите корректное количество гостей.");
+  }
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new HttpError(400, "Укажите дату мероприятия.");
+  }
+
+  return { name, phone, eventType, guests, date, comment };
+}
+
+function normalizePhone(value) {
+  const text = String(value || "").trim();
+  const digits = text.replace(/\D/g, "").slice(0, 15);
+  return `${text.startsWith("+") ? "+" : ""}${digits}`;
+}
+
+function formatBookingMessage(booking, request) {
+  const source = request.headers.get("Referer") || "Сайт RICH HALL";
+  const createdAt = new Date().toLocaleString("ru-RU", {
+    timeZone: "Europe/Minsk",
+    dateStyle: "short",
+    timeStyle: "short"
+  });
+
+  return [
+    "Новая заявка RICH HALL",
+    "",
+    `Имя: ${booking.name}`,
+    `Телефон: ${booking.phone}`,
+    `Тип мероприятия: ${booking.eventType}`,
+    `Гостей: ${booking.guests}`,
+    `Дата: ${booking.date}`,
+    booking.comment ? `Комментарий: ${booking.comment}` : "",
+    "",
+    `Источник: ${source}`,
+    `Время: ${createdAt}`
+  ].filter(Boolean).join("\n");
+}
+
+async function sendBookingToTelegram(env, text) {
+  const token = String(env.TELEGRAM_BOT_TOKEN || "").trim();
+  const chatId = String(env.TELEGRAM_CHAT_ID || "").trim();
+
+  if (!token || !chatId) {
+    throw new HttpError(503, "Приём заявок не настроен.");
+  }
+
+  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      disable_web_page_preview: true
+    })
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    console.error("Telegram API error", response.status, body);
+    throw new HttpError(502, "Не удалось отправить заявку.");
   }
 }
 

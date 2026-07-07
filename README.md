@@ -25,13 +25,15 @@ python3 -m http.server 4173
 
 ## Форма бронирования
 
-Форма отправляет `FormData` методом `POST`. Адрес сервиса приёма заявок задаётся в атрибуте `data-form-endpoint`:
+Форма отправляет `FormData` методом `POST` в Cloudflare Worker:
 
 ```html
-<form data-booking-form data-form-endpoint="https://адрес-сервиса">
+<form data-booking-form data-form-endpoint="https://rich-hall-admin-api.n1kseeman-rh.workers.dev/api/booking">
 ```
 
-Уведомление об успехе появляется только после успешного ответа сервера. Если адрес не задан или сервис недоступен, посетителю показывается сообщение с контактным телефоном.
+Worker валидирует заявку и пересылает её в Telegram. Для работы отправки в Cloudflare должны быть заданы секреты `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
+
+Уведомление об успехе появляется только после успешного ответа сервера. Если сервис недоступен или Telegram не настроен, посетителю показывается сообщение с контактным телефоном.
 
 ## Публикация
 

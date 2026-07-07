@@ -3287,7 +3287,7 @@
           <p class="lead">Оставьте заявку, и команда RICH HALL свяжется с вами для уточнения формата, количества гостей и свободных дат.</p>
         </div>
 
-        <form class="form-panel reveal" method="post" data-booking-form data-form-endpoint="" aria-describedby="form-help form-status">
+        <form class="form-panel reveal" method="post" data-booking-form data-form-endpoint="https://rich-hall-admin-api.n1kseeman-rh.workers.dev/api/booking" aria-describedby="form-help form-status">
           <div class="form-grid">
             <div class="field">
               <label for="name">Имя</label>
@@ -3295,7 +3295,7 @@
             </div>
             <div class="field">
               <label for="phone">Телефон</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+375 29 000 00 00" pattern="[+0-9\s()\-]{7,24}" title="Введите номер телефона" required>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="+375290000000" pattern="\+?[0-9]{7,15}" maxlength="16" title="Введите только цифры и знак + в начале номера" data-phone-input required>
             </div>
             <div class="field">
               <label for="event-type">Тип мероприятия</label>
@@ -3436,6 +3436,7 @@
     const formStatus = document.querySelector("[data-form-status]");
     const submitButton = document.querySelector("[data-submit-button]");
     const eventDate = document.querySelector("[data-event-date]");
+    const phoneInput = document.querySelector("[data-phone-input]");
     const lightbox = document.querySelector("[data-lightbox]");
     const lightboxImage = document.querySelector("[data-lightbox-image]");
     const lightboxCaption = document.querySelector("[data-lightbox-caption]");
@@ -3461,6 +3462,19 @@
       formStatus.classList.add("is-visible");
     }
 
+    function normalizePhoneInput(value) {
+      const hasLeadingPlus = String(value).trim().startsWith("+");
+      const digits = String(value).replace(/\D/g, "").slice(0, 15);
+      return `${hasLeadingPlus ? "+" : ""}${digits}`;
+    }
+
+    function handlePhoneInput() {
+      const normalized = normalizePhoneInput(phoneInput.value);
+      if (phoneInput.value !== normalized) {
+        phoneInput.value = normalized;
+      }
+    }
+
     async function handleSubmit(event) {
       event.preventDefault();
 
@@ -3469,9 +3483,13 @@
 
       if (formData.get("website")) return;
 
+      if (phoneInput) {
+        phoneInput.value = normalizePhoneInput(phoneInput.value);
+        formData.set("phone", phoneInput.value);
+      }
+
       if (!endpoint) {
-        bookingForm.reset();
-        showFormStatus("Спасибо! Заявка отправлена. Мы свяжемся с вами для уточнения деталей.");
+        showFormStatus("Приём заявок пока не настроен. Позвоните нам по номеру +375 29 652 15 15.", "error");
         return;
       }
 
@@ -3542,6 +3560,7 @@
 
     revealItems.forEach((item) => revealObserver.observe(item));
 
+    if (phoneInput) phoneInput.addEventListener("input", handlePhoneInput);
     bookingForm.addEventListener("submit", handleSubmit);
 
     function openLightbox(button) {
