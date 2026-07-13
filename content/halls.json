@@ -4,21 +4,21 @@
       "id": "roman-hall",
       "title": "Римский зал",
       "description": "Уникальный, роскошный и аристократичный зал для юбилеев, семейных праздников, private dining и торжественных вечеров. Вместимость до 30 гостей.",
-      "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=82",
+      "image": "assets/images/roman-02.jpg",
       "tagline": "до 30 гостей"
     },
     {
       "id": "classic-hall",
       "title": "Классический зал",
       "description": "Светлый универсальный зал для свадеб, корпоративов, семейных праздников и камерных торжеств. Вместимость до 50 гостей.",
-      "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=82",
+      "image": "assets/images/classic-04.jpg",
       "tagline": "до 50 гостей"
     },
     {
       "id": "central-hall",
       "title": "Центральный зал",
       "description": "Главное пространство RICH HALL для крупных событий: нетворкингов, бизнес-конференций и корпоративов. Элегантный, стильный, акцентный интерьер. Вместимость до 60 гостей.",
-      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=82",
+      "image": "assets/images/central-05.jpg",
       "tagline": "до 60 гостей"
     }
   ]
