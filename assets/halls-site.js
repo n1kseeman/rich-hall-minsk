@@ -87,10 +87,17 @@
   function createHallCard(hall) {
     const images = getImages(hall);
     const cover = images[0] || placeholder;
+    let cardImageIndex = 0;
+    let cardTouchStartX = 0;
+    let cardTouchStartY = 0;
     const article = document.createElement("article");
     const imageWrap = document.createElement("div");
     const image = document.createElement("img");
     const tagline = document.createElement("span");
+    const sliderControls = document.createElement("div");
+    const previousImageButton = document.createElement("button");
+    const nextImageButton = document.createElement("button");
+    const imageCounter = document.createElement("span");
     const body = document.createElement("div");
     const title = document.createElement("h3");
     const description = document.createElement("p");
@@ -99,8 +106,17 @@
     const bookingLink = document.createElement("a");
 
     article.className = "hall-card reveal is-visible";
-    imageWrap.className = "hall-image";
+    imageWrap.className = "hall-image hall-image-slider";
     tagline.className = "capacity";
+    sliderControls.className = "hall-slider-controls";
+    previousImageButton.className = "hall-slider-arrow is-prev";
+    nextImageButton.className = "hall-slider-arrow is-next";
+    imageCounter.className = "hall-slider-counter";
+    previousImageButton.type = "button";
+    nextImageButton.type = "button";
+    previousImageButton.setAttribute("aria-label", `Предыдущее фото: ${hall.title}`);
+    nextImageButton.setAttribute("aria-label", `Следующее фото: ${hall.title}`);
+    imageCounter.setAttribute("aria-live", "polite");
     body.className = "hall-body";
     actions.className = "hall-actions";
     galleryButton.className = "hall-gallery-open";
@@ -123,7 +139,45 @@
     bookingLink.href = "#booking";
     bookingLink.textContent = "Узнать свободные даты";
 
-    imageWrap.append(image, tagline);
+    function updateCardImage() {
+      cardImageIndex = (cardImageIndex + images.length) % images.length;
+      image.src = images[cardImageIndex];
+      image.alt = `${hall.title} RICH HALL, фото ${cardImageIndex + 1}`;
+      imageCounter.textContent = `${cardImageIndex + 1} / ${images.length}`;
+      image.classList.remove("is-changing");
+      void image.offsetWidth;
+      image.classList.add("is-changing");
+    }
+
+    function moveCardImage(step) {
+      cardImageIndex += step;
+      updateCardImage();
+    }
+
+    if (images.length > 1) {
+      imageWrap.classList.add("has-slider");
+      previousImageButton.textContent = "‹";
+      nextImageButton.textContent = "›";
+      imageCounter.textContent = `1 / ${images.length}`;
+      previousImageButton.addEventListener("click", () => moveCardImage(-1));
+      nextImageButton.addEventListener("click", () => moveCardImage(1));
+      imageWrap.addEventListener("touchstart", (event) => {
+        const touch = event.changedTouches[0];
+        cardTouchStartX = touch?.clientX || 0;
+        cardTouchStartY = touch?.clientY || 0;
+      }, { passive: true });
+      imageWrap.addEventListener("touchend", (event) => {
+        const touch = event.changedTouches[0];
+        const deltaX = (touch?.clientX || 0) - cardTouchStartX;
+        const deltaY = (touch?.clientY || 0) - cardTouchStartY;
+        if (Math.abs(deltaX) > 44 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          moveCardImage(deltaX > 0 ? -1 : 1);
+        }
+      }, { passive: true });
+      sliderControls.append(previousImageButton, imageCounter, nextImageButton);
+    }
+
+    imageWrap.append(image, tagline, sliderControls);
     actions.append(galleryButton, bookingLink);
     body.append(title, description, actions);
     article.append(imageWrap, body);
