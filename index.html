@@ -3355,6 +3355,322 @@
         transform: none;
       }
     }
+
+    /* Единая ось секций и защита от переполнения содержимого. */
+    :root {
+      --container: min(1180px, calc(100% - 32px));
+    }
+
+    html,
+    body {
+      max-width: 100%;
+    }
+
+    body {
+      overflow-x: visible;
+    }
+
+    main {
+      overflow: visible;
+    }
+
+    .section,
+    .container,
+    .hero-grid,
+    .events-grid,
+    .halls-grid,
+    .advantages-layout,
+    .booking-layout,
+    .contacts-layout,
+    .gallery-grid,
+    .menu-teaser-card {
+      min-width: 0;
+    }
+
+    .section > .container,
+    .hero > .container {
+      width: var(--container);
+      margin-inline: auto;
+    }
+
+    .section::before {
+      width: var(--container);
+    }
+
+    .events-grid > *,
+    .halls-grid > *,
+    .advantages-layout > *,
+    .booking-layout > *,
+    .contacts-layout > *,
+    .gallery-grid > *,
+    .menu-teaser-card > * {
+      min-width: 0;
+    }
+
+    .hero::before {
+      width: min(720px, calc(100% - 32px));
+    }
+
+    .hero-media::before {
+      right: 0;
+      left: 0;
+    }
+
+    .menu-teaser-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px 24px;
+      max-width: 760px;
+      margin: 26px 0 0;
+      padding: 0;
+      color: var(--muted);
+      font-size: clamp(.9rem, 1.2vw, 1rem);
+      line-height: 1.5;
+      list-style: none;
+    }
+
+    .menu-teaser-list li {
+      position: relative;
+      min-width: 0;
+      padding-left: 18px;
+    }
+
+    .menu-teaser-list li::before {
+      content: "";
+      position: absolute;
+      top: .62em;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(211, 164, 82, .1);
+    }
+
+    .hall-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hall-actions .btn {
+      min-height: 46px;
+    }
+
+    .hall-gallery-open {
+      min-height: 46px;
+      padding: 0;
+      border: 0;
+      color: var(--gold);
+      background: transparent;
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hall-gallery-open:hover:not(:disabled) {
+      color: var(--milk);
+    }
+
+    .hall-gallery-open:disabled {
+      cursor: default;
+      opacity: .45;
+    }
+
+    .hall-gallery-dialog {
+      width: min(calc(100% - 28px), 1080px);
+      max-width: 1080px;
+      max-height: min(92svh, 920px);
+      margin: auto;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(211, 164, 82, .34);
+      border-radius: 28px;
+      color: var(--milk);
+      background: #120e0a;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .64);
+    }
+
+    .hall-gallery-dialog::backdrop {
+      background: rgba(4, 3, 2, .82);
+      backdrop-filter: blur(8px);
+    }
+
+    .hall-gallery-shell {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: clamp(16px, 3vw, 28px);
+    }
+
+    .hall-gallery-close,
+    .hall-gallery-arrow {
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(245, 239, 228, .2);
+      color: var(--milk);
+      background: rgba(15, 11, 8, .78);
+      backdrop-filter: blur(12px);
+    }
+
+    .hall-gallery-close {
+      position: absolute;
+      z-index: 2;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .hall-gallery-topline {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-right: 52px;
+    }
+
+    .hall-gallery-topline p {
+      color: var(--milk);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    .hall-gallery-topline span {
+      flex: 0 0 auto;
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+    }
+
+    .hall-gallery-stage {
+      position: relative;
+      display: grid;
+      min-height: min(60svh, 650px);
+      place-items: center;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #080706;
+      touch-action: pan-y;
+    }
+
+    .hall-gallery-stage img {
+      width: 100%;
+      height: min(60svh, 650px);
+      object-fit: contain;
+    }
+
+    .hall-gallery-arrow {
+      position: absolute;
+      top: 50%;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 2.2rem;
+      line-height: 1;
+      transform: translateY(-50%);
+    }
+
+    .hall-gallery-arrow.is-prev {
+      left: 14px;
+    }
+
+    .hall-gallery-arrow.is-next {
+      right: 14px;
+    }
+
+    .hall-gallery-thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px;
+      scrollbar-width: thin;
+    }
+
+    .hall-gallery-thumb {
+      width: 72px;
+      height: 58px;
+      flex: 0 0 auto;
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      background: transparent;
+      opacity: .62;
+    }
+
+    .hall-gallery-thumb[aria-current="true"] {
+      border-color: var(--gold);
+      opacity: 1;
+    }
+
+    .hall-gallery-thumb img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --container: calc(100% - 24px);
+      }
+
+      .menu-teaser-list {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .hall-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hall-actions .btn,
+      .hall-gallery-open {
+        width: 100%;
+      }
+
+      .hall-gallery-open {
+        justify-content: center;
+        border: 1px solid rgba(211, 164, 82, .26);
+        border-radius: 999px;
+      }
+
+      .hall-gallery-dialog {
+        width: calc(100% - 20px);
+        border-radius: 22px;
+      }
+
+      .hall-gallery-shell {
+        gap: 12px;
+        padding: 14px;
+      }
+
+      .hall-gallery-stage,
+      .hall-gallery-stage img {
+        min-height: 48svh;
+        height: 48svh;
+      }
+
+      .hall-gallery-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 1.8rem;
+      }
+
+      .hall-gallery-arrow.is-prev {
+        left: 8px;
+      }
+
+      .hall-gallery-arrow.is-next {
+        right: 8px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3589,7 +3905,14 @@
           <div class="section-head reveal">
             <p class="eyebrow">Меню</p>
             <h2>Банкетное меню Rich Hall</h2>
-            <p class="lead">Собственная авторская кухня: разнообразное меню, сытные порции и великолепные вкусовые сочетания от нашей команды поваров. Готовим банкетные блюда из свежих ингредиентов в день вашего мероприятия, учитываем гастрономические предпочтения и диетические особенности гостей. Алкоголь, соки и фрукты можно принести с собой — пробкового сбора нет.</p>
+            <ul class="menu-teaser-list">
+              <li>Собственная авторская кухня.</li>
+              <li>Разнообразное меню для мероприятий любого формата.</li>
+              <li>Сытные порции и продуманные вкусовые сочетания.</li>
+              <li>Блюда готовятся из свежих ингредиентов в день мероприятия.</li>
+              <li>Учитываем гастрономические предпочтения и диетические особенности гостей.</li>
+              <li>Алкоголь, соки и фрукты можно принести с собой — пробкового сбора нет.</li>
+            </ul>
           </div>
 
           <div class="menu-teaser-actions">

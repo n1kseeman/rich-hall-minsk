@@ -374,19 +374,28 @@ function validatePublishPayload(payload) {
     const id = cleanText(hall.id, 90);
     const title = cleanText(hall.title, 80);
     const description = cleanText(hall.description, 1000);
-    const image = cleanText(hall.image, 500);
+    const imageInput = Array.isArray(hall.images) ? hall.images : [hall.image];
+    const images = imageInput
+      .map((image) => cleanText(image, 500))
+      .filter(Boolean);
     const tagline = cleanText(hall.tagline || "банкетное пространство", 80);
 
     if (!/^[a-z0-9-]+$/i.test(id) || ids.has(id)) {
       throw new HttpError(400, "Некорректный идентификатор зала.");
     }
 
-    if (!title || !description || !isAllowedImage(image)) {
-      throw new HttpError(400, "Проверьте название, описание и фотографию зала.");
+    if (
+      !title
+      || !description
+      || !images.length
+      || images.length > 10
+      || images.some((image) => !isAllowedImage(image))
+    ) {
+      throw new HttpError(400, "Проверьте название, описание и фотографии зала.");
     }
 
     ids.add(id);
-    return { id, title, description, image, tagline };
+    return { id, title, description, image: images[0], images, tagline };
   });
 
   const uploadsInput = Array.isArray(payload.uploads) ? payload.uploads : [];
@@ -421,7 +430,7 @@ function validatePublishPayload(payload) {
     throw new HttpError(413, "Общий объём фотографий слишком большой.");
   }
 
-  const referencedImages = new Set(halls.map((hall) => hall.image));
+  const referencedImages = new Set(halls.flatMap((hall) => hall.images));
   for (const path of uploadPaths) {
     if (!referencedImages.has(path)) {
       throw new HttpError(400, "Загружена фотография, которая не используется.");
@@ -448,6 +457,7 @@ function isAllowedImage(value) {
     /^https:\/\/[^\s]+$/i.test(value)
     || value === "assets/hall-placeholder.svg"
     || /^assets\/halls\/[a-z0-9-]+\.webp$/i.test(value)
+    || /^assets\/images\/[a-z0-9_-]+\.(?:jpe?g|png|webp)$/i.test(value)
   );
 }
 
