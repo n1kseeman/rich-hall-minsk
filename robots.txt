@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://n1kseeman.github.io/rich-hall-minsk/sitemap.xml
