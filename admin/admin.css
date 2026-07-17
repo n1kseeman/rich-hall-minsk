@@ -553,3 +553,6 @@ textarea:focus {
     flex-direction: column;
   }
 }
+html.is-framed body {
+  display: none;
+}
