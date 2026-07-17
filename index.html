@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RICH HALL — банкетный зал в Минске</title>
   <meta name="description" content="Банкетное пространство RICH HALL в центре Минска для свадеб, корпоративов, конференций, дней рождения и private dining.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://rich-hall-admin-api.n1kseeman-rh.workers.dev; frame-src https://yandex.by; form-action 'self';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#10100f">
   <meta name="format-detection" content="telephone=no">
   <meta property="og:title" content="RICH HALL — банкетный зал в Минске">
@@ -4420,7 +4422,11 @@
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { Accept: "application/json" },
-          body: formData
+          body: formData,
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "strict-origin"
         });
 
         if (!response.ok) throw new Error(`Form request failed: ${response.status}`);

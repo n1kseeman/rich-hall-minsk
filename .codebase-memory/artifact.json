@@ -1,11 +1,11 @@
 {
     "schema_version": 2,
-    "commit": "98d3723f50c8aa7dcb83b3a950cb31a1c6129f16",
-    "indexed_at": "2026-07-17T08:08:40Z",
+    "commit": "008a7832e318d4e0856c6c5ea944583fab3cf7a5",
+    "indexed_at": "2026-07-17T08:49:31Z",
     "project": "rich-hall-minsk",
-    "nodes": 145,
-    "edges": 304,
-    "original_size": 1638400,
-    "compressed_size": 209128,
-    "compression_level": 9
+    "nodes": 178,
+    "edges": 364,
+    "original_size": 2228224,
+    "compressed_size": 248084,
+    "compression_level": 3
 }

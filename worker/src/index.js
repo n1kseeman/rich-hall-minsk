@@ -1,4 +1,6 @@
 const encoder = new TextEncoder();
+const MAX_JSON_BODY_BYTES = 16 * 1024 * 1024;
+const SESSION_TTL_SECONDS = 30 * 60;
 
 export default {
   async fetch(request, env) {
@@ -6,7 +8,7 @@ export default {
     const allowedOrigins = getAllowedOrigins(env);
 
     if (request.method === "OPTIONS") {
-      if (origin && !allowedOrigins.has(origin)) {
+      if (!origin || !allowedOrigins.has(origin)) {
         return jsonResponse(request, env, { error: "Origin is not allowed." }, 403);
       }
 
@@ -29,6 +31,7 @@ export default {
       }
 
       if (url.pathname === "/api/publish" && request.method === "POST") {
+        assertAllowedOrigin(request, env);
         await requireSession(request, env);
         return await handlePublish(request, env);
       }
@@ -39,11 +42,11 @@ export default {
 
       return jsonResponse(request, env, { error: "Not found." }, 404);
     } catch (error) {
-      console.error(error);
-
       if (error instanceof HttpError) {
         return jsonResponse(request, env, { error: error.message }, error.status);
       }
+
+      console.error(error);
 
       return jsonResponse(
         request,
@@ -74,6 +77,7 @@ function getAllowedOrigins(env) {
 function corsHeaders(request, env) {
   const headers = new Headers({
     "Access-Control-Allow-Headers": "Authorization, Content-Type",
+    "Access-Control-Max-Age": "600",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Cache-Control": "no-store",
     "Content-Type": "application/json; charset=utf-8",
@@ -95,15 +99,24 @@ function jsonResponse(request, env, body, status = 200) {
   });
 }
 
-async function readJson(request) {
+async function readJson(request, maxLength = MAX_JSON_BODY_BYTES) {
   const contentLength = Number(request.headers.get("Content-Length") || 0);
-  if (contentLength > 16 * 1024 * 1024) {
+  if (contentLength > maxLength) {
     throw new HttpError(413, "Слишком большой объём фотографий.");
   }
 
+  if (!request.headers.get("Content-Type")?.includes("application/json")) {
+    throw new HttpError(415, "Некорректный формат запроса.");
+  }
+
   try {
-    return await request.json();
-  } catch {
+    const text = await request.text();
+    if (encoder.encode(text).byteLength > maxLength) {
+      throw new HttpError(413, "Слишком большой объём фотографий.");
+    }
+    return JSON.parse(text);
+  } catch (error) {
+    if (error instanceof HttpError) throw error;
     throw new HttpError(400, "Некорректный запрос.");
   }
 }
@@ -117,14 +130,30 @@ async function readFormOrJson(request, maxLength = 64 * 1024) {
   const contentType = request.headers.get("Content-Type") || "";
 
   if (contentType.includes("application/json")) {
-    return await readJson(request);
+    return await readJson(request, maxLength);
   }
 
   if (
     contentType.includes("application/x-www-form-urlencoded")
     || contentType.includes("multipart/form-data")
   ) {
-    const formData = await request.formData();
+    let bodySize;
+    try {
+      bodySize = (await request.clone().arrayBuffer()).byteLength;
+    } catch {
+      throw new HttpError(400, "Некорректный запрос.");
+    }
+
+    if (bodySize > maxLength) {
+      throw new HttpError(413, "Слишком большой запрос.");
+    }
+
+    let formData;
+    try {
+      formData = await request.formData();
+    } catch {
+      throw new HttpError(400, "Некорректный запрос.");
+    }
     return Object.fromEntries(
       [...formData.entries()].map(([key, value]) => [
         key,
@@ -138,13 +167,14 @@ async function readFormOrJson(request, maxLength = 64 * 1024) {
 
 function assertAllowedOrigin(request, env) {
   const origin = request.headers.get("Origin");
-  if (origin && !getAllowedOrigins(env).has(origin)) {
+  if (!origin || !getAllowedOrigins(env).has(origin)) {
     throw new HttpError(403, "Origin is not allowed.");
   }
 }
 
 async function handleBooking(request, env) {
   assertAllowedOrigin(request, env);
+  await enforceRateLimit(env.BOOKING_RATE_LIMITER, request, "booking");
 
   const payload = await readFormOrJson(request);
   if (cleanText(payload.website, 120)) {
@@ -161,7 +191,8 @@ function validateBookingPayload(payload) {
   const name = cleanText(payload.name, 80);
   const phone = normalizePhone(cleanText(payload.phone, 24));
   const eventType = cleanText(payload.eventType, 80);
-  const guests = Number.parseInt(cleanText(payload.guests, 6), 10);
+  const guestsValue = cleanText(payload.guests, 6);
+  const guests = Number.parseInt(guestsValue, 10);
   const date = cleanText(payload.date, 20);
   const comment = cleanText(payload.comment, 1000);
 
@@ -177,15 +208,26 @@ function validateBookingPayload(payload) {
     throw new HttpError(400, "Укажите тип мероприятия.");
   }
 
-  if (!Number.isInteger(guests) || guests < 1 || guests > 300) {
+  if (!/^\d{1,3}$/.test(guestsValue) || !Number.isInteger(guests) || guests < 1 || guests > 300) {
     throw new HttpError(400, "Укажите корректное количество гостей.");
   }
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+  if (!isValidBookingDate(date)) {
     throw new HttpError(400, "Укажите дату мероприятия.");
   }
 
   return { name, phone, eventType, guests, date, comment };
+}
+
+function isValidBookingDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+
+  const date = new Date(`${value}T00:00:00.000Z`);
+  if (Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== value) return false;
+
+  const today = new Date();
+  const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  return date.getTime() >= todayUtc;
 }
 
 function normalizePhone(value) {
@@ -195,7 +237,7 @@ function normalizePhone(value) {
 }
 
 function formatBookingMessage(booking, request) {
-  const source = request.headers.get("Referer") || "Сайт RICH HALL";
+  const source = cleanText(request.headers.get("Referer") || "Сайт RICH HALL", 500);
   const createdAt = new Date().toLocaleString("ru-RU", {
     timeZone: "Europe/Minsk",
     dateStyle: "short",
@@ -236,20 +278,21 @@ async function sendBookingToTelegram(env, text) {
   });
 
   if (!response.ok) {
-    const body = await response.text();
-    console.error("Telegram API error", response.status, body);
+    console.error("Telegram API error", response.status);
     throw new HttpError(502, "Не удалось отправить заявку.");
   }
 }
 
 async function handleLogin(request, env) {
+  assertAllowedOrigin(request, env);
+  await enforceRateLimit(env.LOGIN_RATE_LIMITER, request, "login");
+
   const body = await readJson(request);
   const username = String(body.username || "");
   const password = String(body.password || "");
-  const suppliedHash = await sha256Hex(password);
   const validUsername = timingSafeEqual(username, String(env.ADMIN_USERNAME || ""));
   const validPassword = timingSafeEqual(
-    suppliedHash,
+    await sha256Hex(password),
     String(env.ADMIN_PASSWORD_HASH || "").toLowerCase()
   );
 
@@ -271,9 +314,12 @@ async function requireSession(request, env) {
 }
 
 async function createSessionToken(env) {
+  const now = Math.floor(Date.now() / 1000);
   const payload = {
     sub: "rich-hall-admin",
-    exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
+    iat: now,
+    exp: now + SESSION_TTL_SECONDS,
+    nonce: base64UrlEncode(crypto.getRandomValues(new Uint8Array(16)))
   };
   const encodedPayload = base64UrlEncode(encoder.encode(JSON.stringify(payload)));
   const signature = await signValue(encodedPayload, env.SESSION_SECRET);
@@ -290,7 +336,17 @@ async function verifySessionToken(token, env) {
 
   try {
     const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(encodedPayload)));
-    return payload.sub === "rich-hall-admin" && Number(payload.exp) > Date.now() / 1000;
+    const now = Math.floor(Date.now() / 1000);
+    const issuedAt = Number(payload.iat);
+    const expiresAt = Number(payload.exp);
+    return (
+      payload.sub === "rich-hall-admin"
+      && Number.isSafeInteger(issuedAt)
+      && Number.isSafeInteger(expiresAt)
+      && issuedAt <= now + 60
+      && expiresAt > now
+      && expiresAt - issuedAt === SESSION_TTL_SECONDS
+    );
   } catch {
     return false;
   }
@@ -315,6 +371,21 @@ async function sha256Hex(value) {
   return [...new Uint8Array(digest)]
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
+}
+
+async function enforceRateLimit(limiter, request, scope) {
+  if (!limiter || typeof limiter.limit !== "function") {
+    throw new HttpError(503, "Защита от частых запросов временно недоступна.");
+  }
+
+  const clientIp = String(request.headers.get("CF-Connecting-IP") || "unknown")
+    .replace(/[^0-9a-f:.]/gi, "")
+    .slice(0, 64) || "unknown";
+  const result = await limiter.limit({ key: `${scope}:${clientIp}` });
+
+  if (!result?.success) {
+    throw new HttpError(429, "Слишком много попыток. Попробуйте через минуту.");
+  }
 }
 
 function timingSafeEqual(left, right) {
@@ -413,6 +484,7 @@ function validatePublishPayload(payload) {
       !/^assets\/halls\/[a-z0-9-]+\.webp$/i.test(path)
       || uploadPaths.has(path)
       || !/^[a-zA-Z0-9+/=]+$/.test(content)
+      || !isWebpBase64(content)
     ) {
       throw new HttpError(400, "Некорректная фотография.");
     }
@@ -449,16 +521,34 @@ function validatePublishPayload(payload) {
 }
 
 function cleanText(value, maxLength) {
-  return String(value || "").trim().slice(0, maxLength);
+  return String(value || "")
+    .replace(/[\u0000-\u001F\u007F]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLength);
 }
 
 function isAllowedImage(value) {
   return (
-    /^https:\/\/[^\s]+$/i.test(value)
-    || value === "assets/hall-placeholder.svg"
+    value === "assets/hall-placeholder.svg"
     || /^assets\/halls\/[a-z0-9-]+\.webp$/i.test(value)
     || /^assets\/images\/[a-z0-9_-]+\.(?:jpe?g|png|webp)$/i.test(value)
   );
+}
+
+function isWebpBase64(value) {
+  if (!value || value.length % 4 !== 0) return false;
+
+  try {
+    const binary = atob(value);
+    return (
+      binary.length >= 12
+      && binary.slice(0, 4) === "RIFF"
+      && binary.slice(8, 12) === "WEBP"
+    );
+  } catch {
+    return false;
+  }
 }
 
 async function publishToGitHub(env, payload) {
@@ -583,3 +673,10 @@ async function githubRequest(env, path, options = {}) {
 
   return data;
 }
+
+export const __test__ = Object.freeze({
+  isValidBookingDate,
+  isWebpBase64,
+  validateBookingPayload,
+  validatePublishPayload
+});

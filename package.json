@@ -10,7 +10,9 @@
     "worker:secret:session": "wrangler secret put SESSION_SECRET --config worker/wrangler.jsonc",
     "worker:secret:github": "wrangler secret put GITHUB_TOKEN --config worker/wrangler.jsonc",
     "worker:secret:telegram-token": "wrangler secret put TELEGRAM_BOT_TOKEN --config worker/wrangler.jsonc",
-    "worker:secret:telegram-chat": "wrangler secret put TELEGRAM_CHAT_ID --config worker/wrangler.jsonc"
+    "worker:secret:telegram-chat": "wrangler secret put TELEGRAM_CHAT_ID --config worker/wrangler.jsonc",
+    "worker:password:generate": "node worker/scripts/generate-admin-password.mjs",
+    "test:security": "node worker/test-security.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

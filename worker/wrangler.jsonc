@@ -5,6 +5,24 @@
   "compatibility_date": "2026-07-05",
   "workers_dev": true,
   "preview_urls": false,
+  "ratelimits": [
+    {
+      "name": "LOGIN_RATE_LIMITER",
+      "namespace_id": "2026071701",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    },
+    {
+      "name": "BOOKING_RATE_LIMITER",
+      "namespace_id": "2026071702",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ],
   "vars": {
     "ADMIN_USERNAME": "admin",
     "GITHUB_OWNER": "n1kseeman",

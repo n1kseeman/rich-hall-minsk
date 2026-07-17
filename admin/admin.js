@@ -72,7 +72,14 @@
     headers.set("Content-Type", "application/json");
     if (state.token) headers.set("Authorization", `Bearer ${state.token}`);
 
-    const response = await fetch(`${apiUrl}${path}`, { ...options, headers });
+    const response = await fetch(`${apiUrl}${path}`, {
+      ...options,
+      headers,
+      cache: "no-store",
+      credentials: "omit",
+      redirect: "error",
+      referrerPolicy: "no-referrer"
+    });
     let payload = {};
     try {
       payload = await response.json();
