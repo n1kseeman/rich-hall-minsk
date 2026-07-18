@@ -19,9 +19,7 @@
       "image": "assets/images/classic-04.jpg",
       "images": [
         "assets/images/classic-04.jpg",
-        "assets/images/classic-02.jpg",
-        "assets/images/classic-03.jpg",
-        "assets/images/classic-01.jpg"
+        "assets/images/classic-02.jpg"
       ],
       "tagline": "до 50 гостей"
     },
@@ -29,13 +27,11 @@
       "id": "central-hall",
       "title": "Центральный зал",
       "description": "Главное пространство RICH HALL для крупных событий: нетворкингов, бизнес-конференций и корпоративов. Элегантный, стильный, акцентный интерьер. Вместимость до 60 гостей.",
-      "image": "assets/images/central-05.jpg",
+      "image": "assets/images/central-03.jpg",
       "images": [
-        "assets/images/central-05.jpg",
         "assets/images/central-02.jpg",
         "assets/images/central-03.jpg",
-        "assets/images/central-04.jpg",
-        "assets/images/central-01.jpg"
+        "assets/images/central-04.jpg"
       ],
       "tagline": "до 60 гостей"
     }
