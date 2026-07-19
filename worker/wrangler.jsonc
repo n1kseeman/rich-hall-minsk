@@ -28,6 +28,6 @@
     "GITHUB_OWNER": "n1kseeman",
     "GITHUB_REPO": "rich-hall-minsk",
     "GITHUB_BRANCH": "main",
-    "ALLOWED_ORIGINS": "https://n1kseeman.github.io,http://localhost:4173,http://127.0.0.1:4173"
+    "ALLOWED_ORIGINS": "https://n1kseeman.github.io,https://www.richhall.by,https://richhall.by,http://localhost:4173,http://127.0.0.1:4173"
   }
 }
