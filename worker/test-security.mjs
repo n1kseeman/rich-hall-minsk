@@ -86,4 +86,83 @@ const blockedBooking = await worker.fetch(new Request("https://worker.example/ap
 }), env);
 assert.equal(blockedBooking.status, 403);
 
-console.log("Security validation tests passed.");
+assert.equal(__test__.isRetryableTelegramError(429, 429), true);
+assert.equal(__test__.isRetryableTelegramError(503, 503), true);
+assert.equal(__test__.isRetryableTelegramError(400, 400), false);
+
+const telegramEnv = {
+  ...env,
+  TELEGRAM_BOT_TOKEN: "test-token",
+  TELEGRAM_CHAT_ID: "-1001234567890"
+};
+const bookingRequest = () => new Request("https://worker.example/api/booking", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Origin: "https://admin.example"
+  },
+  body: JSON.stringify({
+    name: "Иван",
+    phone: "+375291234567",
+    eventType: "Свадьба",
+    guests: "12",
+    date: "2030-01-01",
+    comment: "Тест доставки",
+    website: ""
+  })
+});
+const originalFetch = globalThis.fetch;
+
+try {
+  let retryCalls = 0;
+  globalThis.fetch = async () => {
+    retryCalls += 1;
+    if (retryCalls === 1) {
+      return Response.json({
+        ok: false,
+        error_code: 429,
+        description: "Too Many Requests",
+        parameters: { retry_after: 0 }
+      }, { status: 429 });
+    }
+    return Response.json({ ok: true, result: { message_id: 1 } });
+  };
+
+  const retryResponse = await worker.fetch(bookingRequest(), telegramEnv);
+  assert.equal(retryResponse.status, 200);
+  assert.equal(retryCalls, 2);
+
+  const migratedBodies = [];
+  globalThis.fetch = async (_url, options) => {
+    migratedBodies.push(JSON.parse(options.body));
+    if (migratedBodies.length === 1) {
+      return Response.json({
+        ok: false,
+        error_code: 400,
+        description: "Bad Request: group chat was upgraded",
+        parameters: { migrate_to_chat_id: -1009876543210 }
+      }, { status: 400 });
+    }
+    return Response.json({ ok: true, result: { message_id: 2 } });
+  };
+
+  const migratedResponse = await worker.fetch(bookingRequest(), telegramEnv);
+  assert.equal(migratedResponse.status, 200);
+  assert.equal(migratedBodies.length, 2);
+  assert.equal(migratedBodies[0].chat_id, "-1001234567890");
+  assert.equal(migratedBodies[1].chat_id, "-1009876543210");
+
+  let cachedBody;
+  globalThis.fetch = async (_url, options) => {
+    cachedBody = JSON.parse(options.body);
+    return Response.json({ ok: true, result: { message_id: 3 } });
+  };
+
+  const cachedResponse = await worker.fetch(bookingRequest(), telegramEnv);
+  assert.equal(cachedResponse.status, 200);
+  assert.equal(cachedBody.chat_id, "-1009876543210");
+} finally {
+  globalThis.fetch = originalFetch;
+}
+
+console.log("Worker security and Telegram delivery tests passed.");
